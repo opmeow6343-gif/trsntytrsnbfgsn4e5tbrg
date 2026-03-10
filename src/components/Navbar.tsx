@@ -134,6 +134,12 @@ const Navbar = () => {
                 <DropdownMenuItem onClick={() => navigate("/tos")} className="cursor-pointer gap-2 text-xs">
                   <FileText className="h-3 w-3" /> Terms of Service
                 </DropdownMenuItem>
+                {isAdmin && (
+                  <DropdownMenuItem onClick={() => navigate("/admin/settings")} className="cursor-pointer gap-2 text-xs">
+                    <Shield className="h-3 w-3" /> Admin Panel
+                  </DropdownMenuItem>
+                )}
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer gap-2 text-xs text-destructive">
                   <LogOut className="h-3 w-3" /> Sign Out
