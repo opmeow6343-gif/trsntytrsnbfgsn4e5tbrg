@@ -89,7 +89,7 @@ const OrderChatDialog = ({ open, onOpenChange, ticketId, ticketType, ticketStatu
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="glass-strong border-border/15 max-w-lg rounded-xl p-0 overflow-hidden max-h-[80vh] flex flex-col">
+      <DialogContent className="glass-strong border-border/15 max-w-4xl w-[95vw] rounded-xl p-0 overflow-hidden h-[90vh] flex flex-col">
         <DialogHeader className="p-4 border-b border-border/15 shrink-0">
           <DialogTitle className="font-display text-sm tracking-wider flex items-center gap-2">
             Order #{ticketId.slice(0, 8)}

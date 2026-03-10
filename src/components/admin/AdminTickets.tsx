@@ -3,15 +3,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getAllTickets, addMessage, updateTicketStatus } from "@/lib/storage";
 import type { Ticket } from "@/lib/storage";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import {
-  MessageCircle, Send, Eye, X, Clock, CheckCircle2, Search,
-  Server, Trash2, AlertTriangle, RefreshCw, ArrowUpDown, Download, Square, CheckSquare
+  MessageCircle, Send, Eye, X, Search,
+  Trash2, RefreshCw, ArrowUpDown, Download
 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -31,7 +30,6 @@ const AdminTickets = () => {
   const [filter, setFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"newest" | "oldest" | "needs-reply" | "status">("newest");
-  const [deleting, setDeleting] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const chatEndRef = useRef<HTMLDivElement>(null);
@@ -49,7 +47,6 @@ const AdminTickets = () => {
 
   useEffect(() => { loadTickets(); }, []);
 
-  // Realtime for selected ticket chat
   useEffect(() => {
     if (!selectedTicket) return;
     const channel = supabase
@@ -75,9 +72,11 @@ const AdminTickets = () => {
   };
 
   const handleStatusChange = async (ticketId: string, status: string) => {
+    // Optimistic update
+    setTickets(prev => prev.map(t => t.id === ticketId ? { ...t, status } : t));
+    if (selectedTicket?.id === ticketId) setSelectedTicket(prev => prev ? { ...prev, status } : prev);
+
     await updateTicketStatus(ticketId, status);
-    
-    // Create a notification for the user about the status change
     const ticket = tickets.find(t => t.id === ticketId);
     if (ticket) {
       await supabase.from("notifications").insert({
@@ -86,24 +85,21 @@ const AdminTickets = () => {
         type: "order",
       } as any);
     }
-    
-    await loadTickets();
     toast({ title: `Status → ${status}` });
   };
 
   const handleDeleteTicket = async (ticketId: string) => {
-    setDeleting(ticketId);
-    try {
-      // Delete messages first, then ticket
-      await (supabase as any).from("ticket_messages").delete().eq("ticket_id", ticketId);
-      await (supabase as any).from("tickets").delete().eq("id", ticketId);
-      if (selectedTicket?.id === ticketId) setSelectedTicket(null);
-      toast({ title: "Ticket deleted" });
-      await loadTickets();
-    } catch (err) {
-      toast({ title: "Error", description: "Failed to delete ticket", variant: "destructive" });
-    }
-    setDeleting(null);
+    // Optimistic: remove immediately
+    setTickets(prev => prev.filter(t => t.id !== ticketId));
+    if (selectedTicket?.id === ticketId) setSelectedTicket(null);
+    setSelected(prev => { const next = new Set(prev); next.delete(ticketId); return next; });
+    toast({ title: "Ticket deleted" });
+
+    // Background delete
+    await Promise.all([
+      (supabase as any).from("ticket_messages").delete().eq("ticket_id", ticketId),
+      (supabase as any).from("tickets").delete().eq("id", ticketId),
+    ]);
   };
 
   const handleRefresh = async () => {
@@ -127,20 +123,27 @@ const AdminTickets = () => {
   };
 
   const handleBulkClose = async () => {
-    for (const id of selected) await updateTicketStatus(id, "closed");
+    const ids = Array.from(selected);
+    // Optimistic
+    setTickets(prev => prev.map(t => ids.includes(t.id) ? { ...t, status: "closed" } : t));
     setSelected(new Set());
-    await loadTickets();
-    toast({ title: `${selected.size} tickets closed` });
+    toast({ title: `${ids.length} tickets closed` });
+    await Promise.all(ids.map(id => updateTicketStatus(id, "closed")));
   };
 
   const handleBulkDelete = async () => {
-    for (const id of selected) {
-      await (supabase as any).from("ticket_messages").delete().eq("ticket_id", id);
-      await (supabase as any).from("tickets").delete().eq("id", id);
-    }
+    const ids = Array.from(selected);
+    // Optimistic
+    setTickets(prev => prev.filter(t => !ids.includes(t.id)));
+    if (selectedTicket && ids.includes(selectedTicket.id)) setSelectedTicket(null);
     setSelected(new Set());
-    await loadTickets();
-    toast({ title: `Tickets deleted` });
+    toast({ title: `${ids.length} tickets deleted` });
+
+    // Background delete all in parallel
+    await Promise.all(ids.flatMap(id => [
+      (supabase as any).from("ticket_messages").delete().eq("ticket_id", id),
+      (supabase as any).from("tickets").delete().eq("id", id),
+    ]));
   };
 
   const exportCSV = () => {
@@ -202,7 +205,6 @@ const AdminTickets = () => {
             <CardTitle className="font-display text-sm tracking-wider">TICKET #{selectedTicket.id}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            {/* Specs */}
             <div className="grid grid-cols-2 gap-2 text-xs rounded-lg bg-secondary/30 p-3">
               <div><span className="text-muted-foreground">Email:</span> <span className="font-medium">{selectedTicket.email}</span></div>
               <div><span className="text-muted-foreground">Type:</span> <span className="font-medium">{selectedTicket.type}</span></div>
@@ -220,13 +222,13 @@ const AdminTickets = () => {
               </div>
             )}
 
-            {/* Chat */}
-            <div className="border border-border/20 rounded-lg overflow-hidden" style={{ height: "320px" }}>
-              <div className="px-3 py-2 border-b border-border/15 flex items-center gap-2 bg-secondary/20">
+            {/* Chat - expanded */}
+            <div className="border border-border/20 rounded-lg overflow-hidden flex flex-col" style={{ height: "calc(100vh - 420px)", minHeight: "400px" }}>
+              <div className="px-3 py-2 border-b border-border/15 flex items-center gap-2 bg-secondary/20 shrink-0">
                 <MessageCircle className="h-3 w-3 text-primary" />
                 <span className="text-[11px] font-semibold">Live Chat</span>
               </div>
-              <div className="overflow-y-auto px-3 py-2 space-y-2" style={{ height: "220px" }}>
+              <div className="overflow-y-auto px-3 py-2 space-y-2 flex-1">
                 {selectedTicket.messages.map(m => (
                   <div key={m.id} className={`flex ${m.sender === "admin" ? "justify-end" : "justify-start"}`}>
                     <div className={`max-w-[75%] rounded-lg px-3 py-1.5 text-xs ${
@@ -249,7 +251,7 @@ const AdminTickets = () => {
                 ))}
                 <div ref={chatEndRef} />
               </div>
-              <div className="px-3 py-2 border-t border-border/15 flex gap-2">
+              <div className="px-3 py-2 border-t border-border/15 flex gap-2 shrink-0">
                 <Input
                   value={replyText}
                   onChange={e => setReplyText(e.target.value)}
@@ -303,7 +305,6 @@ const AdminTickets = () => {
         <span className="text-[10px] text-muted-foreground ml-auto">{filtered.length} ticket{filtered.length !== 1 ? "s" : ""}</span>
       </div>
 
-      {/* Bulk actions bar */}
       {selected.size > 0 && (
         <div className="flex items-center gap-2 p-2 rounded-lg bg-primary/5 border border-primary/10">
           <span className="text-xs font-medium">{selected.size} selected</span>
@@ -320,7 +321,6 @@ const AdminTickets = () => {
       ) : (
         <Card className="border-border/50 bg-card/50">
           <CardContent className="p-0">
-            {/* Select all header */}
             <div className="px-4 py-2 border-b border-border/20 flex items-center gap-2">
               <Checkbox checked={selected.size === filtered.length && filtered.length > 0} onCheckedChange={toggleSelectAll} />
               <span className="text-[10px] text-muted-foreground">Select all</span>
@@ -353,7 +353,6 @@ const AdminTickets = () => {
                         size="icon"
                         variant="ghost"
                         onClick={() => handleDeleteTicket(t.id)}
-                        disabled={deleting === t.id}
                         className="h-7 w-7 text-destructive hover:text-destructive"
                       >
                         <Trash2 className="h-3 w-3" />

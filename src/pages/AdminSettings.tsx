@@ -150,7 +150,6 @@ const AdminSettings = () => {
       <nav className="border-b border-border/50 bg-background/80 backdrop-blur-xl sticky top-0 z-40">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-3">
-            <Link to="/"><Button variant="ghost" size="icon"><ArrowLeft className="h-4 w-4" /></Button></Link>
             <span className="font-display text-lg font-bold tracking-wider">ADMIN <span className="text-primary">PANEL</span></span>
           </div>
           {tab === "content" && (
