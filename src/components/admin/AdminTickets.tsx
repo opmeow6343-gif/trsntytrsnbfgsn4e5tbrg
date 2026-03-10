@@ -125,7 +125,7 @@ const AdminTickets = () => {
   const handleBulkClose = async () => {
     const ids = Array.from(selected);
     // Optimistic
-    setTickets(prev => prev.map(t => ids.includes(t.id) ? { ...t, status: "closed" } : t));
+    setTickets(prev => prev.map(t => ids.includes(t.id) ? { ...t, status: "closed" as Ticket["status"] } : t));
     setSelected(new Set());
     toast({ title: `${ids.length} tickets closed` });
     await Promise.all(ids.map(id => updateTicketStatus(id, "closed")));

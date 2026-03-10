@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
-import { Menu, X, ExternalLink, User, LogOut, FileText, Monitor } from "lucide-react";
+import { Menu, X, ExternalLink, User, LogOut, FileText, Monitor, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import logo from "@/assets/zeyroncloud-logo.png";
