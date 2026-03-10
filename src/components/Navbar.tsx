@@ -35,8 +35,20 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => setUserEmail(session?.user?.email || null));
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => setUserEmail(session?.user?.email || null));
+    const checkAdmin = async (userId: string) => {
+      const { data } = await supabase.rpc("has_role", { _user_id: userId, _role: "admin" });
+      setIsAdmin(!!data);
+    };
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUserEmail(session?.user?.email || null);
+      if (session?.user?.id) checkAdmin(session.user.id);
+      else setIsAdmin(false);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      setUserEmail(session?.user?.email || null);
+      if (session?.user?.id) checkAdmin(session.user.id);
+      else setIsAdmin(false);
+    });
     return () => subscription.unsubscribe();
   }, []);
 
