@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { ExternalLink } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
@@ -150,12 +151,16 @@ const AdminSettings = () => {
       <nav className="border-b border-border/50 bg-background/80 backdrop-blur-xl sticky top-0 z-40">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-3">
-            <Link to="/"><Button variant="ghost" size="icon"><ArrowLeft className="h-4 w-4" /></Button></Link>
             <span className="font-display text-lg font-bold tracking-wider">ADMIN <span className="text-primary">PANEL</span></span>
           </div>
-          {tab === "content" && (
-            <Button onClick={handleSave} className="glow-blue gap-2 font-display text-xs tracking-wider"><Save className="h-4 w-4" /> SAVE</Button>
-          )}
+          <div className="flex items-center gap-2">
+            {tab === "content" && (
+              <Button onClick={handleSave} className="glow-blue gap-2 font-display text-xs tracking-wider"><Save className="h-4 w-4" /> SAVE</Button>
+            )}
+            <a href="/" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="sm" className="gap-1.5 text-xs"><ExternalLink className="h-3 w-3" /> Visit Website</Button>
+            </a>
+          </div>
         </div>
       </nav>
       <main className="container mx-auto px-4 py-6 max-w-4xl">

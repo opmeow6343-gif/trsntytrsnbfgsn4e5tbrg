@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
-import { Menu, X, ExternalLink, User, LogOut, FileText, Monitor } from "lucide-react";
+import { Menu, X, ExternalLink, User, LogOut, FileText, Monitor, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import logo from "@/assets/zeyroncloud-logo.png";
@@ -24,6 +24,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -34,8 +35,20 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => setUserEmail(session?.user?.email || null));
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => setUserEmail(session?.user?.email || null));
+    const checkAdmin = async (userId: string) => {
+      const { data } = await supabase.rpc("has_role", { _user_id: userId, _role: "admin" });
+      setIsAdmin(!!data);
+    };
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUserEmail(session?.user?.email || null);
+      if (session?.user?.id) checkAdmin(session.user.id);
+      else setIsAdmin(false);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      setUserEmail(session?.user?.email || null);
+      if (session?.user?.id) checkAdmin(session.user.id);
+      else setIsAdmin(false);
+    });
     return () => subscription.unsubscribe();
   }, []);
 
@@ -121,6 +134,11 @@ const Navbar = () => {
                 <DropdownMenuItem onClick={() => navigate("/tos")} className="cursor-pointer gap-2 text-xs">
                   <FileText className="h-3 w-3" /> Terms of Service
                 </DropdownMenuItem>
+                {isAdmin && (
+                  <DropdownMenuItem onClick={() => navigate("/admin/settings")} className="cursor-pointer gap-2 text-xs">
+                    <Shield className="h-3 w-3" /> Admin Panel
+                  </DropdownMenuItem>
+                )}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer gap-2 text-xs text-destructive">
                   <LogOut className="h-3 w-3" /> Sign Out

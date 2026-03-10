@@ -1,86 +1,77 @@
-import { useState, useCallback } from "react";
+import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BackToTop from "@/components/BackToTop";
-import PageTransition from "@/components/PageTransition";
 import CustomCursor from "@/components/CustomCursor";
-import LoadingScreen from "@/components/LoadingScreen";
 import FlashSaleBanner from "@/components/FlashSaleBanner";
-import Index from "./pages/Index";
-import MinecraftHosting from "./pages/MinecraftHosting";
-import MinecraftPlans from "./pages/MinecraftPlans";
-import BotHosting from "./pages/BotHosting";
-import BotPlans from "./pages/BotPlans";
-import MinecraftTools from "./pages/MinecraftTools";
-import BoosterPlans from "./pages/BoosterPlans";
-import TermsOfService from "./pages/TermsOfService";
-import AdminLogin from "./pages/AdminLogin";
-import AdminSettings from "./pages/AdminSettings";
-import NewsPage from "./pages/NewsPage";
-import CartPage from "./pages/CartPage";
-import AuthPage from "./pages/AuthPage";
-import FAQPage from "./pages/FAQPage";
-import NotFound from "./pages/NotFound";
-import PlanComparison from "./pages/PlanComparison";
-import VPSPlans from "./pages/VPSPlans";
-import ProfilePage from "./pages/ProfilePage";
-import ResetPassword from "./pages/ResetPassword";
+import FloatingOrdersButton from "@/components/FloatingOrdersButton";
+
+const Index = lazy(() => import("./pages/Index"));
+const MinecraftHosting = lazy(() => import("./pages/MinecraftHosting"));
+const MinecraftPlans = lazy(() => import("./pages/MinecraftPlans"));
+const BotHosting = lazy(() => import("./pages/BotHosting"));
+const BotPlans = lazy(() => import("./pages/BotPlans"));
+const MinecraftTools = lazy(() => import("./pages/MinecraftTools"));
+const BoosterPlans = lazy(() => import("./pages/BoosterPlans"));
+const TermsOfService = lazy(() => import("./pages/TermsOfService"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const AdminSettings = lazy(() => import("./pages/AdminSettings"));
+const NewsPage = lazy(() => import("./pages/NewsPage"));
+const CartPage = lazy(() => import("./pages/CartPage"));
+const AuthPage = lazy(() => import("./pages/AuthPage"));
+const FAQPage = lazy(() => import("./pages/FAQPage"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const PlanComparison = lazy(() => import("./pages/PlanComparison"));
+const VPSPlans = lazy(() => import("./pages/VPSPlans"));
+const ProfilePage = lazy(() => import("./pages/ProfilePage"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 
 const queryClient = new QueryClient();
 
-const AnimatedRoutes = () => {
-  const location = useLocation();
-  return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><Index /></PageTransition>} />
-        <Route path="/minecraft" element={<PageTransition><MinecraftHosting /></PageTransition>} />
-        <Route path="/minecraft-plans" element={<PageTransition><MinecraftPlans /></PageTransition>} />
-        <Route path="/bot-hosting" element={<PageTransition><BotHosting /></PageTransition>} />
-        <Route path="/bot-plans" element={<PageTransition><BotPlans /></PageTransition>} />
-        <Route path="/tools" element={<PageTransition><MinecraftTools /></PageTransition>} />
-        <Route path="/booster-plans" element={<PageTransition><BoosterPlans /></PageTransition>} />
-        <Route path="/tos" element={<PageTransition><TermsOfService /></PageTransition>} />
-        <Route path="/news" element={<PageTransition><NewsPage /></PageTransition>} />
-        <Route path="/cart" element={<PageTransition><CartPage /></PageTransition>} />
-        <Route path="/auth" element={<PageTransition><AuthPage /></PageTransition>} />
-        <Route path="/faq" element={<PageTransition><FAQPage /></PageTransition>} />
-        <Route path="/admin" element={<PageTransition><AdminLogin /></PageTransition>} />
-        <Route path="/admin/settings" element={<PageTransition><AdminSettings /></PageTransition>} />
-        <Route path="/vps-plans" element={<PageTransition><VPSPlans /></PageTransition>} />
-        <Route path="/compare" element={<PageTransition><PlanComparison /></PageTransition>} />
-        <Route path="/profile" element={<PageTransition><ProfilePage /></PageTransition>} />
-        <Route path="/reset-password" element={<PageTransition><ResetPassword /></PageTransition>} />
-        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
-      </Routes>
-    </AnimatePresence>
-  );
-};
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-background">
+    <div className="h-6 w-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+  </div>
+);
 
 const App = () => {
-  const [loaded, setLoaded] = useState(false);
-  const handleLoadComplete = useCallback(() => setLoaded(true), []);
-
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <AnimatePresence>
-          {!loaded && <LoadingScreen key="loader" onComplete={handleLoadComplete} />}
-        </AnimatePresence>
-        {loaded && (
-          <BrowserRouter>
-            <CustomCursor />
-            <FlashSaleBanner />
-            <AnimatedRoutes />
-            <BackToTop />
-          </BrowserRouter>
-        )}
+        <BrowserRouter>
+          <CustomCursor />
+          <FlashSaleBanner />
+          <FloatingOrdersButton />
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/minecraft" element={<MinecraftHosting />} />
+              <Route path="/minecraft-plans" element={<MinecraftPlans />} />
+              <Route path="/bot-hosting" element={<BotHosting />} />
+              <Route path="/bot-plans" element={<BotPlans />} />
+              <Route path="/tools" element={<MinecraftTools />} />
+              <Route path="/booster-plans" element={<BoosterPlans />} />
+              <Route path="/tos" element={<TermsOfService />} />
+              <Route path="/news" element={<NewsPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/auth" element={<AuthPage />} />
+              <Route path="/faq" element={<FAQPage />} />
+              <Route path="/admin" element={<AdminLogin />} />
+              <Route path="/admin/settings" element={<AdminSettings />} />
+              <Route path="/vps-plans" element={<VPSPlans />} />
+              <Route path="/compare" element={<PlanComparison />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+          <BackToTop />
+        </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
   );

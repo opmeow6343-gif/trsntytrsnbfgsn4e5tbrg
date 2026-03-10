@@ -1,50 +1,85 @@
 
 
-## Plan: Website Improvements
+# Make AlphaCloud Website Better -- Improvement Plan
 
-### 1. Floating "My Orders" Button
-Add a fixed circular button on the right side of the screen (visible only when logged in) that navigates to `/profile`. Positioned mid-right as a floating action button with an icon.
+## Overview
+This plan covers UI/UX improvements, consistency fixes, missing functionality, and polish across the entire site to make it feel more professional and fully functional.
 
-### 2. Optimize Ticket Deletion (Make Instant)
-**Problem**: Deleting tickets is slow because it does sequential awaits and then reloads all tickets.
-**Fix**:
-- Use optimistic UI updates — remove the ticket from state immediately, then delete in background
-- For bulk delete, use `Promise.all` instead of sequential loop
-- Remove the `await loadTickets()` after delete since we already updated state optimistically
+---
 
-### 3. Delete All Old Tickets
-Use the database insert tool to delete all existing tickets and their messages.
+## 1. Upgrade the 404 Page
+The current NotFound page is plain and unstyled compared to the rest of the site.
+- Add the Navbar, Footer, AnimatedBackground
+- Style it with the same dark theme, glow effects, and Orbitron font
+- Add a "Go Home" button with the glow-blue style
 
-### 4. Full-Screen Chat Dialog
-Expand `OrderChatDialog` to be full-screen instead of a small dialog:
-- Change `max-w-lg` to `max-w-4xl` and `max-h-[80vh]` to `h-[90vh]`
-- Make chat area fill available space
-- Also expand admin ticket chat from `320px` height to fill the card
+## 2. Add a Testimonials / Trust Section to the Landing Page
+- Create a new `TestimonialsSection` component with 4-6 fake user reviews
+- Cards with avatar initials, star ratings, quote text, and username
+- Placed between FeaturesSection and PricingPreview on the homepage
+- Animated entrance with framer-motion
 
-### 5. Admin Panel Navigation Fix
-**Problem**: Back button in admin panel goes to `/` (home). 
-**Fix**:
-- In `AdminSettings.tsx`: Change back button `<Link to="/">` to just show "Go to Website" and add it separately; keep main flow within admin
-- Add a "Go to Admin" link in the main website Navbar (visible only to admins)
-- In admin nav: Back arrow goes nowhere (already on main admin); add "Visit Website" button
+## 3. Add a "Back to Top" Floating Button
+- A small floating button (bottom-right) that appears when the user scrolls down
+- Smooth scroll back to top on click
+- Uses the primary glow style
 
-### 6. Speed Optimizations
-- Remove the fake `LoadingScreen` — it artificially delays page load by ~1.5s with a progress bar
-- Use `React.lazy` + `Suspense` for route-level code splitting
-- Remove heavy `AnimatePresence mode="wait"` wrapper on routes (causes layout shifts and delays)
+## 4. Improve Navbar with User Avatar Dropdown
+- When logged in, show user's email initial in a styled avatar circle
+- Clicking opens a dropdown with: My Tickets, Sign Out
+- Removes the duplicate "My Tickets" and "Account" buttons currently in the navbar
 
-### Technical Changes
+## 5. Fix Bot Plans Page -- Use Auth Session Instead of Manual Email
+The Bot Plans page currently asks users to type their email manually in the order dialog, while the Minecraft Plans page correctly uses the logged-in session email. Fix this inconsistency:
+- Use `supabase.auth.getSession()` to get the user email (same pattern as MinecraftPlans)
+- Remove the manual email Input from the Bot Plans order dialog
+- Show "Ordering as: email" or "Sign in required" like MinecraftPlans does
 
-**Files to modify:**
-1. **`src/App.tsx`** — Remove `LoadingScreen`, add `React.lazy` imports, remove artificial loading gate
-2. **`src/components/Navbar.tsx`** — Add floating "My Orders" circle button + admin link for admin users
-3. **`src/components/admin/AdminTickets.tsx`** — Optimistic deletes with `Promise.all`, remove reload after delete
-4. **`src/components/OrderChatDialog.tsx`** — Make full-screen
-5. **`src/pages/AdminSettings.tsx`** — Fix back button nav, add "Visit Website" button
+## 6. Fix Booster Plans Page -- Same Auth Consistency
+Same issue as Bot Plans: uses manual email input instead of auth session.
+- Apply the same session-based ordering pattern
 
-**New file:**
-6. **`src/components/FloatingOrdersButton.tsx`** — Circular floating button on right side
+## 7. Fix Minecraft Hosting (Configurator) Page -- Same Auth Consistency
+Same manual email issue on the custom configurator page.
+- Apply session-based ordering
 
-**Database operation:**
-7. Delete all existing tickets and messages
+## 8. Add Smooth Page Transitions
+- Wrap route content with framer-motion `AnimatePresence` for fade transitions between pages
+- Add a simple layout wrapper component that handles enter/exit animations
+
+## 9. Add a "Status Badge" to the Navbar
+- Small green dot + "All Systems Operational" text near the logo or footer
+- Adds a professional touch showing server status
+
+## 10. Improve Footer with Social Links & Newsletter Placeholder
+- Add Instagram, YouTube icon placeholders alongside Discord
+- Add a simple "Join our newsletter" email input (visual only, stores nothing for now)
+
+## 11. Add Loading Skeleton States
+- On pages like MyTickets and NewsPage, show skeleton loaders while data loads instead of blank content
+- Use the existing Skeleton UI component
+
+---
+
+## Technical Details
+
+### Files to Create
+- `src/components/landing/TestimonialsSection.tsx` -- testimonials grid
+- `src/components/BackToTop.tsx` -- floating scroll-to-top button
+- `src/components/PageTransition.tsx` -- framer-motion page wrapper
+
+### Files to Modify
+- `src/pages/Index.tsx` -- add TestimonialsSection
+- `src/pages/NotFound.tsx` -- full redesign with site theme
+- `src/pages/BotPlans.tsx` -- fix auth consistency (use session email)
+- `src/pages/BoosterPlans.tsx` -- fix auth consistency (use session email)
+- `src/pages/MinecraftHosting.tsx` -- fix auth consistency (use session email)
+- `src/components/Navbar.tsx` -- add user avatar dropdown, clean up duplicate buttons
+- `src/components/Footer.tsx` -- add status indicator, social links
+- `src/App.tsx` -- wrap routes with AnimatePresence for page transitions
+- `src/pages/MyTickets.tsx` -- add skeleton loading state
+- `src/pages/NewsPage.tsx` -- add skeleton loading state
+
+### No Database Changes Required
+All improvements are frontend-only. The existing localStorage-based data layer and auth system remain unchanged.
 
