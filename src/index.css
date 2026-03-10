@@ -239,6 +239,14 @@
   100% { box-shadow: 0 0 0 0 hsl(160 100% 45% / 0); }
 }
 .pulse-ring { animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.light .pulse-ring {
+  animation-name: pulse-ring-light;
+}
+@keyframes pulse-ring-light {
+  0% { box-shadow: 0 0 0 0 hsl(160 85% 32% / 0.25); }
+  70% { box-shadow: 0 0 0 12px hsl(160 85% 32% / 0); }
+  100% { box-shadow: 0 0 0 0 hsl(160 85% 32% / 0); }
+}
 
 /* Marquee */
 @keyframes marquee {
