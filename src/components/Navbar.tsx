@@ -139,7 +139,6 @@ const Navbar = () => {
                     <Shield className="h-3 w-3" /> Admin Panel
                   </DropdownMenuItem>
                 )}
-                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer gap-2 text-xs text-destructive">
                   <LogOut className="h-3 w-3" /> Sign Out
