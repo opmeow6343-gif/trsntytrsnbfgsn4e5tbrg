@@ -73,8 +73,8 @@ const AdminTickets = () => {
 
   const handleStatusChange = async (ticketId: string, status: string) => {
     // Optimistic update
-    setTickets(prev => prev.map(t => t.id === ticketId ? { ...t, status } : t));
-    if (selectedTicket?.id === ticketId) setSelectedTicket(prev => prev ? { ...prev, status } : prev);
+    setTickets(prev => prev.map(t => t.id === ticketId ? { ...t, status: status as Ticket["status"] } : t));
+    if (selectedTicket?.id === ticketId) setSelectedTicket(prev => prev ? { ...prev, status: status as Ticket["status"] } : prev);
 
     await updateTicketStatus(ticketId, status);
     const ticket = tickets.find(t => t.id === ticketId);
