@@ -152,9 +152,14 @@ const AdminSettings = () => {
           <div className="flex items-center gap-3">
             <span className="font-display text-lg font-bold tracking-wider">ADMIN <span className="text-primary">PANEL</span></span>
           </div>
-          {tab === "content" && (
-            <Button onClick={handleSave} className="glow-blue gap-2 font-display text-xs tracking-wider"><Save className="h-4 w-4" /> SAVE</Button>
-          )}
+          <div className="flex items-center gap-2">
+            {tab === "content" && (
+              <Button onClick={handleSave} className="glow-blue gap-2 font-display text-xs tracking-wider"><Save className="h-4 w-4" /> SAVE</Button>
+            )}
+            <a href="/" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="sm" className="gap-1.5 text-xs"><ExternalLink className="h-3 w-3" /> Visit Website</Button>
+            </a>
+          </div>
         </div>
       </nav>
       <main className="container mx-auto px-4 py-6 max-w-4xl">
