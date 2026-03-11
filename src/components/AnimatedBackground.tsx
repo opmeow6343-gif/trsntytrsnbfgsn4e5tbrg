@@ -26,6 +26,31 @@ const Particle = ({ delay, x, y, size }: { delay: number; x: string; y: string; 
   />
 );
 
+const LightParticle = ({ delay, x, y, size }: { delay: number; x: string; y: string; size: number }) => (
+  <motion.div
+    className="absolute rounded-full"
+    style={{
+      width: size,
+      height: size,
+      left: x,
+      top: y,
+      background: `radial-gradient(circle, hsl(160 90% 40% / ${0.12 + Math.random() * 0.1}), transparent)`,
+    }}
+    animate={{
+      y: [0, -60, 0],
+      x: [0, (Math.random() - 0.5) * 40, 0],
+      opacity: [0, 0.6, 0],
+      scale: [0.5, 1.3, 0.5],
+    }}
+    transition={{
+      duration: 5 + Math.random() * 5,
+      delay,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+  />
+);
+
 const AnimatedBackground = () => {
   const [isLight, setIsLight] = useState(() => document.documentElement.classList.contains("light"));
   const [particles] = useState(() =>
@@ -58,11 +83,11 @@ const AnimatedBackground = () => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
         >
-          {/* Soft teal orb top-right */}
+          {/* Vibrant teal orb top-right */}
           <motion.div
             className="absolute w-[700px] h-[700px] rounded-full"
             style={{
-              background: "radial-gradient(circle, hsl(160 80% 75% / 0.35), hsl(160 60% 85% / 0.1) 50%, transparent 70%)",
+              background: "radial-gradient(circle, hsl(160 85% 65% / 0.4), hsl(160 70% 75% / 0.12) 50%, transparent 70%)",
               top: "-25%",
               right: "-10%",
             }}
@@ -73,49 +98,64 @@ const AnimatedBackground = () => {
           <motion.div
             className="absolute w-[550px] h-[550px] rounded-full"
             style={{
-              background: "radial-gradient(circle, hsl(45 100% 80% / 0.3), hsl(45 80% 88% / 0.08) 50%, transparent 70%)",
+              background: "radial-gradient(circle, hsl(45 90% 70% / 0.35), hsl(45 80% 80% / 0.1) 50%, transparent 70%)",
               bottom: "-20%",
               left: "-8%",
             }}
             animate={{ scale: [1, 1.18, 1], y: [0, -40, 0], rotate: [0, -5, 0] }}
             transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
           />
-          {/* Small mint orb center-right */}
+          {/* Mint orb center-right */}
           <motion.div
             className="absolute w-[350px] h-[350px] rounded-full"
             style={{
-              background: "radial-gradient(circle, hsl(160 70% 80% / 0.25), transparent 70%)",
+              background: "radial-gradient(circle, hsl(160 75% 70% / 0.3), transparent 70%)",
               top: "55%",
               left: "65%",
             }}
             animate={{ scale: [1, 1.3, 1], x: [0, -25, 0], y: [0, 15, 0] }}
             transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
           />
-          {/* Blue-green orb top-left */}
+          {/* Blue-teal orb top-left */}
           <motion.div
             className="absolute w-[400px] h-[400px] rounded-full"
             style={{
-              background: "radial-gradient(circle, hsl(170 60% 82% / 0.2), transparent 70%)",
+              background: "radial-gradient(circle, hsl(170 65% 72% / 0.25), transparent 70%)",
               top: "10%",
               left: "5%",
             }}
             animate={{ scale: [1, 1.15, 1], x: [0, 20, 0], y: [0, -20, 0] }}
             transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
           />
+          {/* Extra warm accent center */}
+          <motion.div
+            className="absolute w-[300px] h-[300px] rounded-full"
+            style={{
+              background: "radial-gradient(circle, hsl(35 90% 75% / 0.2), transparent 70%)",
+              top: "30%",
+              left: "40%",
+            }}
+            animate={{ scale: [1, 1.25, 1], x: [0, -15, 0], y: [0, 20, 0] }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          />
+          {/* Light particles */}
+          {particles.slice(0, 12).map((p) => (
+            <LightParticle key={p.id} {...p} />
+          ))}
           {/* Light grid */}
           <motion.div
             className="absolute inset-0"
             style={{
               backgroundImage: `
-                linear-gradient(hsl(160 50% 50% / 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, hsl(160 50% 50% / 0.04) 1px, transparent 1px)
+                linear-gradient(hsl(160 60% 45% / 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, hsl(160 60% 45% / 0.04) 1px, transparent 1px)
               `,
               backgroundSize: "60px 60px",
             }}
-            animate={{ opacity: [0.3, 0.5, 0.3] }}
+            animate={{ opacity: [0.3, 0.6, 0.3] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           />
-          <div className="absolute inset-0 dot-grid opacity-30" />
+          <div className="absolute inset-0 dot-grid opacity-40" />
         </motion.div>
       ) : (
         <motion.div
