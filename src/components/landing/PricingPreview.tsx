@@ -101,13 +101,10 @@ const PricingPreview = () => {
               whileHover={{
                 scale: 1.05,
                 y: -10,
-                boxShadow: plan.popular
-                  ? "0 30px 60px hsl(160 100% 45% / 0.15), 0 0 0 1px hsl(160 100% 45% / 0.2)"
-                  : "0 25px 50px hsl(160 100% 45% / 0.08), 0 0 0 1px hsl(160 100% 45% / 0.12)",
                 transition: { duration: 0.3 }
               }}
               onClick={() => handlePlanClick(plan)}
-              className={`relative rounded-xl glass gradient-border p-5 cursor-pointer overflow-hidden ${plan.popular ? "ring-1 ring-primary/20" : ""}`}
+              className={`relative rounded-xl glass gradient-border p-5 cursor-pointer overflow-hidden card-hover ${plan.popular ? "ring-1 ring-primary/20" : ""}`}
             >
               {/* Animated shine overlay for popular */}
               {plan.popular && (

@@ -103,12 +103,10 @@ const FeaturesSection = () => (
 
               {/* Back */}
               <div
-                className="absolute inset-0 rounded-xl glass p-6 flex flex-col justify-center items-center text-center group-hover:[transform:rotateY(0deg)] [transform:rotateY(-180deg)] transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]"
+                className="absolute inset-0 rounded-xl p-6 flex flex-col justify-center items-center text-center group-hover:[transform:rotateY(0deg)] [transform:rotateY(-180deg)] transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] feature-card-back"
                 style={{
                   backfaceVisibility: "hidden",
                   transformStyle: "preserve-3d",
-                  background: "linear-gradient(135deg, hsl(160 8% 7% / 0.9), hsl(160 8% 10% / 0.9))",
-                  border: "1px solid hsl(160 100% 45% / 0.15)",
                 }}
               >
                 <f.icon className="h-6 w-6 text-primary mb-3" />
