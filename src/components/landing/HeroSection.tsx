@@ -223,9 +223,8 @@ const HeroSection = () => {
                 whileHover={{
                   scale: 1.08,
                   y: -6,
-                  boxShadow: "0 20px 40px hsl(160 100% 45% / 0.1)",
                 }}
-                className="text-center p-4 rounded-xl glass gradient-border"
+                className="text-center p-4 rounded-xl glass gradient-border card-hover"
               >
                 <motion.div
                   animate={{ rotate: [0, 10, -10, 0] }}

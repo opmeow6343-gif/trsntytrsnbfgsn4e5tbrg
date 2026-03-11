@@ -89,10 +89,9 @@ const TestimonialsSection = () => (
             whileHover={{
               scale: 1.03,
               y: -6,
-              boxShadow: "0 20px 40px hsl(160 100% 45% / 0.06)",
               transition: { duration: 0.3 }
             }}
-            className="rounded-xl glass gradient-border p-5 relative overflow-hidden"
+            className="rounded-xl glass gradient-border p-5 relative overflow-hidden card-hover"
           >
             {/* Animated quote */}
             <motion.div

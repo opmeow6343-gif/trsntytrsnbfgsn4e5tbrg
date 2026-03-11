@@ -285,6 +285,17 @@
 }
 
 /* Light mode elevated cards */
+/* Feature card back */
+.feature-card-back {
+  background: linear-gradient(135deg, hsl(160 8% 7% / 0.9), hsl(160 8% 10% / 0.9));
+  border: 1px solid hsl(160 100% 45% / 0.15);
+}
+.light .feature-card-back {
+  background: linear-gradient(135deg, hsl(160 20% 96% / 0.98), hsl(150 15% 94% / 0.98));
+  border: 1px solid hsl(160 40% 60% / 0.25);
+  box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.6), 0 4px 16px hsl(160 40% 40% / 0.08);
+}
+
 .light .light-elevated {
   box-shadow: 0 1px 3px hsl(160 30% 50% / 0.06), 0 8px 24px hsl(160 30% 50% / 0.06);
 }
