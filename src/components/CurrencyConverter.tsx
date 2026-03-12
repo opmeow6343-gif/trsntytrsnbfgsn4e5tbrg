@@ -4,7 +4,7 @@ import { Globe, ExternalLink } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
-const DISCORD_INVITE = "https://discord.gg/pBXUVRne";
+const DISCORD_INVITE = "https://discord.gg/zeyron";
 
 const rates: Record<string, { symbol: string; rate: number }> = {
   INR: { symbol: "₹", rate: 1 },

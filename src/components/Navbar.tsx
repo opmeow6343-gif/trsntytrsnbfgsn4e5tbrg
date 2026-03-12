@@ -199,7 +199,7 @@ const Navbar = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.3 }}
               >
-                <a href="https://discord.gg/pBXUVRne" target="_blank" rel="noopener noreferrer" className="flex-1">
+                <a href="https://discord.gg/zeyron" target="_blank" rel="noopener noreferrer" className="flex-1">
                   <Button variant="outline" size="sm" className="w-full gap-1.5 text-xs rounded-lg"><ExternalLink className="h-3 w-3" /> Discord</Button>
                 </a>
                 {userEmail ? (

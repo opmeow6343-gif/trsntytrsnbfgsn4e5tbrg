@@ -432,6 +432,7 @@ const AdminSettings = () => {
                 </div>
               )}
 
+              {tab === "reviews" && <AdminReviews />}
               {tab === "coupons" && <AdminCoupons />}
               {tab === "flashsales" && <AdminFlashSales />}
               {tab === "triggers" && <AdminTriggers />}

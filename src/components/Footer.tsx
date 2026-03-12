@@ -40,7 +40,12 @@ const Footer = () => (
         {[
           { title: "Hosting", links: [{ label: "Minecraft", to: "/minecraft-plans" }, { label: "VPS", to: "/vps-plans" }, { label: "Bot Hosting", to: "/bot-plans" }, { label: "Boosters", to: "/booster-plans" }] },
           { title: "Resources", links: [{ label: "MC Tools", to: "/tools" }, { label: "News", to: "/news" }, { label: "FAQ", to: "/faq" }, { label: "Terms", to: "/tos" }] },
-          { title: "Connect", links: [{ label: "Discord", to: "https://discord.gg/pBXUVRne", external: true }, { label: "Sign In", to: "/auth" }, { label: "Profile", to: "/profile" }] },
+          { title: "Connect", links: [
+            { label: "Discord", to: "https://discord.gg/zeyron", external: true },
+            { label: "YouTube", to: "https://www.youtube.com/@ZeyronCloud", external: true },
+            { label: "Sign In", to: "/auth" },
+            { label: "Profile", to: "/profile" },
+          ] },
         ].map((col, ci) => (
           <motion.div
             key={col.title}

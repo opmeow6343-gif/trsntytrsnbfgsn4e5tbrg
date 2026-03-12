@@ -55,7 +55,7 @@ const DiscordBanner = () => (
         </div>
 
         <motion.a
-          href="https://discord.gg/pBXUVRne"
+          href="https://discord.gg/zeyron"
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.05 }}

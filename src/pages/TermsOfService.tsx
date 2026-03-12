@@ -2,27 +2,30 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import SEOHead from "@/components/SEOHead";
 
 const TermsOfService = () => {
   return (
     <div className="min-h-screen bg-background animated-bg">
+      <SEOHead title="Terms of Service — ZeyronCloud" description="ZeyronCloud terms of service and refund policy." path="/tos" />
       <AnimatedBackground />
       <Navbar />
-      <main className="pt-24 pb-16 relative z-10">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <h1 className="font-display text-3xl font-black tracking-tight md:text-5xl text-center mb-2">
-              TERMS OF <span className="text-primary text-glow">SERVICE</span>
+      <main className="pt-28 pb-20 relative z-10">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-xs text-primary mb-6 font-mono tracking-widest">LEGAL</div>
+            <h1 className="font-display text-3xl font-black tracking-tight md:text-5xl mb-3">
+              TERMS OF <span className="gradient-text">SERVICE</span>
             </h1>
-            <p className="text-center text-muted-foreground mb-4">& Refund Policy</p>
-            <p className="text-center text-xs text-muted-foreground mb-12">Last Updated: February 17, 2026</p>
+            <p className="text-muted-foreground text-sm">& Refund Policy</p>
+            <p className="text-xs text-muted-foreground mt-2">Last Updated: February 17, 2026</p>
           </motion.div>
 
-          <div className="space-y-8">
+          <div className="space-y-4">
             {[
               {
                 title: "1. Acceptance of Service",
-                content: `By purchasing any Minecraft or Bot hosting plan from AlphaCloud, via our website or Discord, you agree to these terms. Failure to follow these rules will result in immediate suspension without a refund.`,
+                content: `By purchasing any Minecraft or Bot hosting plan from ZeyronCloud, via our website or Discord, you agree to these terms. Failure to follow these rules will result in immediate suspension without a refund.`,
               },
               {
                 title: "2. Refund & Cancellation Policy",
@@ -32,7 +35,7 @@ const TermsOfService = () => {
                   "**Refund Amount:** Only 80% of the payment will be refunded (to cover transaction fees and setup costs).",
                   "**Final Sale:** After 24 hours, all payments are 100% non-refundable.",
                   "**Chargeback Policy:** Raising a dispute or chargeback through your payment provider (UPI/Bank) is strictly prohibited. Any such action will result in immediate termination of all active services and a permanent ban from our website and Discord.",
-                  "**How to Request:** You must open a Ticket on our website or contact support via Discord: https://discord.gg/VxvXJkYT5q.",
+                  "**How to Request:** You must open a Ticket on our website or contact support via Discord: https://discord.gg/zeyron.",
                 ],
               },
               {
@@ -54,7 +57,7 @@ const TermsOfService = () => {
               },
               {
                 title: '5. "Permanent" Server Guarantee',
-                content: 'Servers sold as "Permanent" come with a 1-year (12 months) uptime guarantee. After the first year, AlphaCloud is not liable for data loss or hardware decommissioning, and the "Permanent" status may be reviewed based on hardware costs.',
+                content: 'Servers sold as "Permanent" come with a 1-year (12 months) uptime guarantee. After the first year, ZeyronCloud is not liable for data loss or hardware decommissioning, and the "Permanent" status may be reviewed based on hardware costs.',
               },
               {
                 title: "6. Termination of Service",
@@ -67,7 +70,7 @@ const TermsOfService = () => {
               },
               {
                 title: "7. Limitation of Liability",
-                content: "AlphaCloud shall not be held liable for any indirect, incidental, or consequential damages arising from the use or inability to use our services. Our total liability is limited to the amount paid for the specific service in question.",
+                content: "ZeyronCloud shall not be held liable for any indirect, incidental, or consequential damages arising from the use or inability to use our services. Our total liability is limited to the amount paid for the specific service in question.",
               },
               {
                 title: "8. Data & Privacy",
@@ -75,11 +78,11 @@ const TermsOfService = () => {
               },
               {
                 title: "9. Modifications to Terms",
-                content: "AlphaCloud reserves the right to modify these terms at any time. Users will be notified of significant changes via Discord or email. Continued use of our services after changes constitutes acceptance of the new terms.",
+                content: "ZeyronCloud reserves the right to modify these terms at any time. Users will be notified of significant changes via Discord or email. Continued use of our services after changes constitutes acceptance of the new terms.",
               },
               {
                 title: "10. Contact",
-                content: "For questions about these terms, contact us via Discord: https://discord.gg/VxvXJkYT5q or open a support ticket on our website.",
+                content: "For questions about these terms, contact us via Discord: https://discord.gg/zeyron or open a support ticket on our website.",
               },
             ].map((section, i) => (
               <motion.div
@@ -87,11 +90,11 @@ const TermsOfService = () => {
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm p-6"
+                transition={{ delay: i * 0.04 }}
+                className="rounded-xl glass gradient-border p-6"
               >
-                <h2 className="font-display text-sm font-bold tracking-wider text-primary mb-3">
-                  {section.title.toUpperCase()}
+                <h2 className="font-display text-xs font-bold tracking-widest text-primary mb-3 uppercase">
+                  {section.title}
                 </h2>
                 {section.content && <p className="text-sm text-muted-foreground leading-relaxed mb-3">{section.content}</p>}
                 {section.list && (
