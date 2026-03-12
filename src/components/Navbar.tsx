@@ -104,7 +104,7 @@ const Navbar = () => {
         >
           <ThemeToggle />
           <NotificationCenter />
-          <a href="https://discord.gg/pBXUVRne" target="_blank" rel="noopener noreferrer">
+          <a href="https://discord.gg/zeyron" target="_blank" rel="noopener noreferrer">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button variant="ghost" size="sm" className="gap-1.5 text-xs text-muted-foreground hover:text-foreground h-8">
                 <ExternalLink className="h-3 w-3" /> Discord
@@ -199,7 +199,7 @@ const Navbar = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.3 }}
               >
-                <a href="https://discord.gg/pBXUVRne" target="_blank" rel="noopener noreferrer" className="flex-1">
+                <a href="https://discord.gg/zeyron" target="_blank" rel="noopener noreferrer" className="flex-1">
                   <Button variant="outline" size="sm" className="w-full gap-1.5 text-xs rounded-lg"><ExternalLink className="h-3 w-3" /> Discord</Button>
                 </a>
                 {userEmail ? (

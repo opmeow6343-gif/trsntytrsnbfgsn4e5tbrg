@@ -151,7 +151,7 @@ const VPSPlans = () => {
       <main className="pt-24 pb-16 relative z-10">
         <div className="container mx-auto px-4">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-xs text-primary mb-6">ALPHA CLOUD VPS</div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-xs text-primary mb-6">ZEYRONCLOUD VPS</div>
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight" style={{ fontFamily: "'Outfit', sans-serif" }}>
               VPS <span className="text-primary text-glow">Plans</span>
             </h1>

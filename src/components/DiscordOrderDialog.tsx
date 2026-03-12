@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ExternalLink, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
-const DISCORD_INVITE = "https://discord.gg/pBXUVRne";
+const DISCORD_INVITE = "https://discord.gg/zeyron";
 
 interface Props { open: boolean; onOpenChange: (open: boolean) => void; }
 

@@ -101,7 +101,7 @@ const CTASection = () => {
                 </Button>
               </motion.div>
               <motion.div whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.94 }}>
-                <a href="https://discord.gg/pBXUVRne" target="_blank" rel="noopener noreferrer">
+                <a href="https://discord.gg/zeyron" target="_blank" rel="noopener noreferrer">
                   <Button size="lg" variant="outline" className="gap-2 px-8 text-sm border-border/30 hover:border-primary/30 rounded-xl h-11">
                     <ExternalLink className="h-4 w-4" /> Discord
                   </Button>

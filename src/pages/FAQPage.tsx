@@ -125,7 +125,7 @@ const FAQPage = () => (
           <p className="text-muted-foreground text-xs mb-5">
             Our support team is available 24/7 on Discord. Create a ticket and we'll help you out!
           </p>
-          <a href="https://discord.gg/pBXUVRne" target="_blank" rel="noopener noreferrer">
+          <a href="https://discord.gg/zeyron" target="_blank" rel="noopener noreferrer">
             <Button className="glow-primary gap-2 text-xs font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90">
               <ExternalLink className="h-3.5 w-3.5" /> Join Discord
             </Button>
