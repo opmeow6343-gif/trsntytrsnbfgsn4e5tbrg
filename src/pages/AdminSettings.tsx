@@ -42,7 +42,7 @@ const settingsFields: { key: keyof SiteSettings; label: string; multiline?: bool
   { key: "pricingSubtitle", label: "Pricing Subtitle" },
 ];
 
-type TabId = "dashboard" | "tickets" | "alerts" | "content" | "news" | "coupons" | "flashsales" | "triggers" | "webhooks" | "booster" | "logo" | "admins";
+type TabId = "dashboard" | "tickets" | "alerts" | "content" | "news" | "coupons" | "flashsales" | "triggers" | "webhooks" | "booster" | "logo" | "admins" | "reviews";
 
 const tabs: { id: TabId; label: string; icon: any; group: string }[] = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, group: "Overview" },
@@ -50,6 +50,7 @@ const tabs: { id: TabId; label: string; icon: any; group: string }[] = [
   { id: "alerts", label: "Alerts", icon: Bell, group: "Overview" },
   { id: "content", label: "Content", icon: Settings2, group: "Manage" },
   { id: "news", label: "News", icon: Newspaper, group: "Manage" },
+  { id: "reviews", label: "Reviews", icon: Newspaper, group: "Manage" },
   { id: "coupons", label: "Coupons", icon: Tag, group: "Manage" },
   { id: "flashsales", label: "Flash Sales", icon: Zap, group: "Manage" },
   { id: "triggers", label: "Triggers", icon: Zap, group: "Automation" },
