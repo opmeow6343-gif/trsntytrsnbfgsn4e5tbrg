@@ -104,7 +104,7 @@ const Navbar = () => {
         >
           <ThemeToggle />
           <NotificationCenter />
-          <a href="https://discord.gg/pBXUVRne" target="_blank" rel="noopener noreferrer">
+          <a href="https://discord.gg/zeyron" target="_blank" rel="noopener noreferrer">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button variant="ghost" size="sm" className="gap-1.5 text-xs text-muted-foreground hover:text-foreground h-8">
                 <ExternalLink className="h-3 w-3" /> Discord
