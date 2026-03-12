@@ -30,6 +30,7 @@ import AdminTriggers from "@/components/admin/AdminTriggers";
 import AdminWebhooks from "@/components/admin/AdminWebhooks";
 import AdminNotifications from "@/components/admin/AdminNotifications";
 import AdminDashboard from "@/components/admin/AdminDashboard";
+import AdminReviews from "@/components/admin/AdminReviews";
 
 const settingsFields: { key: keyof SiteSettings; label: string; multiline?: boolean }[] = [
   { key: "heroTitle1", label: "Hero Title Line 1" },
