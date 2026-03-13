@@ -147,8 +147,10 @@ const AdminSettings = () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) return;
       const res = await supabase.functions.invoke("manage-admin", { body: { action: "list" } });
+      console.log("loadAdmins response:", res);
+      if (res.error) { console.error("Edge function error:", res.error); return; }
       if (res.data?.admins) setAdmins(res.data.admins);
-    } catch {}
+    } catch (e) { console.error("loadAdmins failed:", e); }
   };
 
   const handleSave = async () => { await saveSettings(settings); toast({ title: "Settings saved" }); };
