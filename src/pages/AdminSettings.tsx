@@ -59,6 +59,7 @@ const tabs: { id: TabId; label: string; icon: any; group: string }[] = [
   { id: "booster", label: "Booster", icon: Sparkles, group: "Settings" },
   { id: "logo", label: "Logo", icon: Image, group: "Settings" },
   { id: "admins", label: "Admins", icon: Users, group: "Settings" },
+  { id: "freeserver", label: "Free Server", icon: Gift, group: "Settings" },
 ];
 
 const groups = ["Overview", "Manage", "Automation", "Settings"];
