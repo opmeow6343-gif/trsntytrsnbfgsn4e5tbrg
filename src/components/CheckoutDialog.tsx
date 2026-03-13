@@ -40,7 +40,7 @@ const INR_TO_PKR = 3.3;
 const DISCORD_INVITE = "https://discord.gg/zeyron";
 
 const currencyConfig: Record<Currency, { symbol: string; label: string; flag: string; qr: string; paymentMethod: string; accountInfo: string; accountName: string }> = {
-  INR: { symbol: "₹", label: "INR", flag: "🇮🇳", qr: qrInr, paymentMethod: "UPI", accountInfo: "", accountName: "" },
+  INR: { symbol: "₹", label: "INR", flag: "🇮🇳", qr: qrInr, paymentMethod: "UPI", accountInfo: "akshit1408@fam", accountName: "AKSHIT" },
   PKR: { symbol: "Rs", label: "PKR", flag: "🇵🇰", qr: qrPkr, paymentMethod: "NayaPay", accountInfo: "MuhammadArshad.@nayapay", accountName: "MUHAMMAD ARSHAD" },
 };
 
@@ -297,14 +297,14 @@ const CheckoutDialog = ({ open, onOpenChange, plan }: Props) => {
 
                   <img src={cc.qr} alt={`${cc.paymentMethod} QR Code`} className="w-48 h-48 mx-auto rounded-lg bg-white p-2 object-contain" />
 
-                  {currency === "INR" && upiId && (
+                  {currency === "INR" && (
                     <div className="mt-3">
                       <p className="text-[10px] text-muted-foreground mb-1">Or pay to UPI ID:</p>
                       <button
-                        onClick={() => { navigator.clipboard.writeText(upiId); toast({ title: "Copied!", description: upiId }); }}
+                        onClick={() => { const id = upiId || cc.accountInfo; navigator.clipboard.writeText(id); toast({ title: "Copied!", description: id }); }}
                         className="inline-flex items-center gap-1.5 rounded-lg bg-primary/10 border border-primary/15 px-3 py-1.5 text-xs font-mono text-primary hover:bg-primary/15 transition-colors"
                       >
-                        <IndianRupee className="h-3 w-3" /> {upiId}
+                        <IndianRupee className="h-3 w-3" /> {upiId || cc.accountInfo}
                       </button>
                     </div>
                   )}
