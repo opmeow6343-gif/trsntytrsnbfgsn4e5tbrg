@@ -28,6 +28,7 @@ const PlanComparison = lazy(() => import("./pages/PlanComparison"));
 const VPSPlans = lazy(() => import("./pages/VPSPlans"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
+const FreeServer = lazy(() => import("./pages/FreeServer"));
 
 const queryClient = new QueryClient();
 
