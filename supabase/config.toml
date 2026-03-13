@@ -1,1 +1,7 @@
 project_id = "dhtdqtbgmegwtwujcnsw"
+
+[functions.manage-admin]
+verify_jwt = false
+
+[functions.discord-webhook]
+verify_jwt = false
