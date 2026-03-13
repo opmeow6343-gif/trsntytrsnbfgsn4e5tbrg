@@ -503,6 +503,10 @@ const AdminSettings = () => {
                   </CardContent>
                 </Card>
               )}
+
+              {tab === "freeserver" && (
+                <FreeServerToggle />
+              )}
             </motion.div>
           </AnimatePresence>
         </div>
