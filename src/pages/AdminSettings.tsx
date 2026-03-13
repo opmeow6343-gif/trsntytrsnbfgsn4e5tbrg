@@ -43,7 +43,7 @@ const settingsFields: { key: keyof SiteSettings; label: string; multiline?: bool
   { key: "pricingSubtitle", label: "Pricing Subtitle" },
 ];
 
-type TabId = "dashboard" | "tickets" | "alerts" | "content" | "news" | "coupons" | "flashsales" | "triggers" | "webhooks" | "booster" | "logo" | "admins" | "reviews";
+type TabId = "dashboard" | "tickets" | "alerts" | "content" | "news" | "coupons" | "flashsales" | "triggers" | "webhooks" | "booster" | "logo" | "admins" | "reviews" | "freeserver";
 
 const tabs: { id: TabId; label: string; icon: any; group: string }[] = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, group: "Overview" },
