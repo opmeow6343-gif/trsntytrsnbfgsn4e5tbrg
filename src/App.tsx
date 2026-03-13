@@ -68,6 +68,7 @@ const App = () => {
               <Route path="/compare" element={<PlanComparison />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/free-server" element={<FreeServer />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
