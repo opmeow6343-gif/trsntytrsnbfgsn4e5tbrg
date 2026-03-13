@@ -15,6 +15,7 @@ const navLinks = [
   { label: "VPS", to: "/vps-plans" },
   { label: "Bot Hosting", to: "/bot-plans" },
   { label: "Boosters", to: "/booster-plans" },
+  { label: "Free Server", to: "/free-server" },
   { label: "Tools", to: "/tools" },
   { label: "News", to: "/news" },
   { label: "FAQ", to: "/faq" },
