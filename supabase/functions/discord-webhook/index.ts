@@ -112,7 +112,7 @@ serve(async (req) => {
       },
     };
 
-    const content = pingId ? `<@${pingId}> 🔔 New ticket!` : "";
+    const content = pingMentions ? `${pingMentions} 🔔 New ticket!` : "";
 
     const discordRes = await fetch(webhookUrl, {
       method: "POST",
