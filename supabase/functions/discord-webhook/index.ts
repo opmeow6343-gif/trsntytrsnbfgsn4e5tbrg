@@ -45,8 +45,8 @@ serve(async (req) => {
 
     // Action: "needs_reply" — ticket needs admin attention
     if (action === "needs_reply") {
-      const content = pingId
-        ? `<@${pingId}> ⚠️ **Ticket #${ticketId.toUpperCase()}** needs your reply! User is waiting.`
+      const content = pingMentions
+        ? `${pingMentions} ⚠️ **Ticket #${ticketId.toUpperCase()}** needs your reply! User is waiting.`
         : `⚠️ **Ticket #${ticketId.toUpperCase()}** needs your reply! User is waiting.`;
 
       const embed = {
