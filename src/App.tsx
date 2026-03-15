@@ -40,15 +40,29 @@ const PageLoader = () => (
 );
 
 const App = () => {
+  const [cursorEnabled, setCursorEnabled] = useState(() => {
+    const saved = localStorage.getItem("zeyron-custom-cursor");
+    return saved !== "false";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("zeyron-custom-cursor", String(cursorEnabled));
+    if (cursorEnabled) {
+      document.documentElement.classList.remove("no-custom-cursor");
+    } else {
+      document.documentElement.classList.add("no-custom-cursor");
+    }
+  }, [cursorEnabled]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <CustomCursor />
+          {cursorEnabled && <CustomCursor />}
           <FlashSaleBanner />
-          <FloatingOrdersButton />
+          <FloatingOrdersButton cursorEnabled={cursorEnabled} onToggleCursor={() => setCursorEnabled(p => !p)} />
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Index />} />
