@@ -8,6 +8,7 @@ import BackToTop from "@/components/BackToTop";
 import CustomCursor from "@/components/CustomCursor";
 import FlashSaleBanner from "@/components/FlashSaleBanner";
 import FloatingOrdersButton from "@/components/FloatingOrdersButton";
+import { useState, useEffect } from "react";
 
 const Index = lazy(() => import("./pages/Index"));
 const MinecraftHosting = lazy(() => import("./pages/MinecraftHosting"));
@@ -39,13 +40,32 @@ const PageLoader = () => (
 );
 
 const App = () => {
+  const [cursorEnabled, setCursorEnabled] = useState(() => {
+    const saved = localStorage.getItem("zeyron-custom-cursor");
+    return saved !== "false";
+  });
+
+  useEffect(() => {
+    const handler = (e: Event) => setCursorEnabled((e as CustomEvent).detail);
+    window.addEventListener("cursor-toggle", handler);
+    return () => window.removeEventListener("cursor-toggle", handler);
+  }, []);
+
+  useEffect(() => {
+    if (cursorEnabled) {
+      document.documentElement.classList.remove("no-custom-cursor");
+    } else {
+      document.documentElement.classList.add("no-custom-cursor");
+    }
+  }, [cursorEnabled]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <CustomCursor />
+          {cursorEnabled && <CustomCursor />}
           <FlashSaleBanner />
           <FloatingOrdersButton />
           <Suspense fallback={<PageLoader />}>

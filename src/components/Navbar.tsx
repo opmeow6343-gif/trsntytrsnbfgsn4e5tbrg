@@ -8,6 +8,7 @@ import logo from "@/assets/zeyroncloud-logo.png";
 import { supabase } from "@/integrations/supabase/client";
 import NotificationCenter from "@/components/NotificationCenter";
 import ThemeToggle from "@/components/ThemeToggle";
+import CursorToggle from "@/components/CursorToggle";
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -26,8 +27,16 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [cursorEnabled, setCursorEnabled] = useState(() => localStorage.getItem("zeyron-custom-cursor") !== "false");
   const location = useLocation();
   const navigate = useNavigate();
+
+  const toggleCursor = () => {
+    const next = !cursorEnabled;
+    setCursorEnabled(next);
+    localStorage.setItem("zeyron-custom-cursor", String(next));
+    window.dispatchEvent(new CustomEvent("cursor-toggle", { detail: next }));
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -103,6 +112,7 @@ const Navbar = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.8, duration: 0.5 }}
         >
+          <CursorToggle enabled={cursorEnabled} onToggle={toggleCursor} />
           <ThemeToggle />
           <NotificationCenter />
           <a href="https://discord.gg/zeyron" target="_blank" rel="noopener noreferrer">
