@@ -8,6 +8,7 @@ import BackToTop from "@/components/BackToTop";
 import CustomCursor from "@/components/CustomCursor";
 import FlashSaleBanner from "@/components/FlashSaleBanner";
 import FloatingOrdersButton from "@/components/FloatingOrdersButton";
+import { useState, useEffect } from "react";
 
 const Index = lazy(() => import("./pages/Index"));
 const MinecraftHosting = lazy(() => import("./pages/MinecraftHosting"));
