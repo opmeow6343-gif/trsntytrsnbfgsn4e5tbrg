@@ -40,12 +40,13 @@ serve(async (req) => {
     }
 
     const webhookUrl = settings[0].discord_webhook_url;
-    const pingId = settings[0].discord_ping_id || "";
+    const pingIds = (settings[0].discord_ping_id || "").split(",").map((s: string) => s.trim()).filter(Boolean);
+    const pingMentions = pingIds.map((id: string) => `<@${id}>`).join(" ");
 
     // Action: "needs_reply" — ticket needs admin attention
     if (action === "needs_reply") {
-      const content = pingId
-        ? `<@${pingId}> ⚠️ **Ticket #${ticketId.toUpperCase()}** needs your reply! User is waiting.`
+      const content = pingMentions
+        ? `${pingMentions} ⚠️ **Ticket #${ticketId.toUpperCase()}** needs your reply! User is waiting.`
         : `⚠️ **Ticket #${ticketId.toUpperCase()}** needs your reply! User is waiting.`;
 
       const embed = {
@@ -111,7 +112,7 @@ serve(async (req) => {
       },
     };
 
-    const content = pingId ? `<@${pingId}> 🔔 New ticket!` : "";
+    const content = pingMentions ? `${pingMentions} 🔔 New ticket!` : "";
 
     const discordRes = await fetch(webhookUrl, {
       method: "POST",
