@@ -46,7 +46,12 @@ const App = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem("zeyron-custom-cursor", String(cursorEnabled));
+    const handler = (e: Event) => setCursorEnabled((e as CustomEvent).detail);
+    window.addEventListener("cursor-toggle", handler);
+    return () => window.removeEventListener("cursor-toggle", handler);
+  }, []);
+
+  useEffect(() => {
     if (cursorEnabled) {
       document.documentElement.classList.remove("no-custom-cursor");
     } else {

@@ -100,7 +100,7 @@
 
 /* ── Custom Cursor ── */
 @media (hover: hover) and (pointer: fine) {
-  *, *::before, *::after {
+  html:not(.no-custom-cursor) *, html:not(.no-custom-cursor) *::before, html:not(.no-custom-cursor) *::after {
     cursor: none !important;
   }
 }
