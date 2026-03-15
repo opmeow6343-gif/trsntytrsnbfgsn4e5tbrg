@@ -112,6 +112,7 @@ const Navbar = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.8, duration: 0.5 }}
         >
+          <CursorToggle enabled={cursorEnabled} onToggle={toggleCursor} />
           <ThemeToggle />
           <NotificationCenter />
           <a href="https://discord.gg/zeyron" target="_blank" rel="noopener noreferrer">
