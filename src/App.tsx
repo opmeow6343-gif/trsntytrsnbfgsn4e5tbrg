@@ -62,7 +62,7 @@ const App = () => {
         <BrowserRouter>
           {cursorEnabled && <CustomCursor />}
           <FlashSaleBanner />
-          <FloatingOrdersButton cursorEnabled={cursorEnabled} onToggleCursor={() => setCursorEnabled(p => !p)} />
+          <FloatingOrdersButton />
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Index />} />
