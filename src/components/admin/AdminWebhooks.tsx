@@ -7,12 +7,40 @@ import { Switch } from "@/components/ui/switch";
 import { getWebhookSettings, saveWebhookSettings } from "@/lib/storage";
 import type { WebhookSettings } from "@/lib/storage";
 import { toast } from "@/hooks/use-toast";
-import { Save, Webhook } from "lucide-react";
+import { Save, Webhook, Plus, X } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 const AdminWebhooks = () => {
   const [settings, setSettings] = useState<WebhookSettings>({ discordWebhookUrl: "", enabled: false, discordPingId: "" });
+  const [newPingId, setNewPingId] = useState("");
 
   useEffect(() => { getWebhookSettings().then(setSettings); }, []);
+
+  // Parse comma-separated ping IDs
+  const pingIds = settings.discordPingId
+    ? settings.discordPingId.split(",").map(s => s.trim()).filter(Boolean)
+    : [];
+
+  const addPingId = () => {
+    const id = newPingId.trim();
+    if (!id) return;
+    if (pingIds.length >= 3) {
+      toast({ title: "Maximum 3 ping IDs allowed", variant: "destructive" });
+      return;
+    }
+    if (pingIds.includes(id)) {
+      toast({ title: "ID already added", variant: "destructive" });
+      return;
+    }
+    const updated = [...pingIds, id].join(",");
+    setSettings({ ...settings, discordPingId: updated });
+    setNewPingId("");
+  };
+
+  const removePingId = (id: string) => {
+    const updated = pingIds.filter(p => p !== id).join(",");
+    setSettings({ ...settings, discordPingId: updated });
+  };
 
   const handleSave = async () => {
     await saveWebhookSettings(settings);
@@ -32,10 +60,47 @@ const AdminWebhooks = () => {
           <Input value={settings.discordWebhookUrl} onChange={e => setSettings({ ...settings, discordWebhookUrl: e.target.value })} placeholder="https://discord.com/api/webhooks/..." className="bg-secondary/50 border-border mt-1 text-xs" />
         </div>
         <div>
-          <Label className="text-xs text-muted-foreground">Ping Role/User ID (optional)</Label>
-          <Input value={settings.discordPingId} onChange={e => setSettings({ ...settings, discordPingId: e.target.value })} placeholder="e.g. 123456789012345678" className="bg-secondary/50 border-border mt-1 text-xs" />
+          <Label className="text-xs text-muted-foreground">Ping Role/User IDs (up to 3)</Label>
+          <p className="text-[10px] text-muted-foreground mb-2">Add Discord user or role IDs to ping when a new ticket is created.</p>
+          
+          {/* Current ping IDs */}
+          {pingIds.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-2">
+              {pingIds.map((id) => (
+                <Badge key={id} variant="secondary" className="gap-1.5 pr-1 text-xs">
+                  <span className="font-mono">{id}</span>
+                  <button
+                    onClick={() => removePingId(id)}
+                    className="h-4 w-4 rounded-full hover:bg-destructive/20 flex items-center justify-center transition-colors"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                </Badge>
+              ))}
+            </div>
+          )}
+
+          {/* Add new ping ID */}
+          {pingIds.length < 3 && (
+            <div className="flex gap-2">
+              <Input
+                value={newPingId}
+                onChange={e => setNewPingId(e.target.value)}
+                placeholder="e.g. 123456789012345678"
+                className="bg-secondary/50 border-border text-xs font-mono"
+                onKeyDown={e => e.key === "Enter" && addPingId()}
+              />
+              <Button onClick={addPingId} variant="outline" size="sm" className="gap-1 shrink-0">
+                <Plus className="h-3 w-3" /> Add
+              </Button>
+            </div>
+          )}
+
+          {pingIds.length >= 3 && (
+            <p className="text-[10px] text-muted-foreground">Maximum 3 IDs reached. Remove one to add another.</p>
+          )}
         </div>
-        <Button onClick={handleSave} className="gap-2 glow-blue font-display text-xs tracking-wider"><Save className="h-4 w-4" />SAVE</Button>
+        <Button onClick={handleSave} className="gap-2 glow-primary font-display text-xs tracking-wider"><Save className="h-4 w-4" />SAVE</Button>
       </CardContent>
     </Card>
   );
