@@ -8,6 +8,7 @@ import logo from "@/assets/zeyroncloud-logo.png";
 import { supabase } from "@/integrations/supabase/client";
 import NotificationCenter from "@/components/NotificationCenter";
 import ThemeToggle from "@/components/ThemeToggle";
+import CursorToggle from "@/components/CursorToggle";
 
 const navLinks = [
   { label: "Home", to: "/" },
