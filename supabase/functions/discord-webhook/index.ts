@@ -40,7 +40,8 @@ serve(async (req) => {
     }
 
     const webhookUrl = settings[0].discord_webhook_url;
-    const pingId = settings[0].discord_ping_id || "";
+    const pingIds = (settings[0].discord_ping_id || "").split(",").map((s: string) => s.trim()).filter(Boolean);
+    const pingMentions = pingIds.map((id: string) => `<@${id}>`).join(" ");
 
     // Action: "needs_reply" — ticket needs admin attention
     if (action === "needs_reply") {
