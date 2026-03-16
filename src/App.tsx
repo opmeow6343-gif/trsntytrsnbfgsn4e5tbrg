@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BackToTop from "@/components/BackToTop";
 import CustomCursor from "@/components/CustomCursor";
 import FlashSaleBanner from "@/components/FlashSaleBanner";
-import FloatingOrdersButton from "@/components/FloatingOrdersButton";
 import { useState, useEffect } from "react";
 
 const Index = lazy(() => import("./pages/Index"));
@@ -21,7 +20,7 @@ const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminSettings = lazy(() => import("./pages/AdminSettings"));
 const NewsPage = lazy(() => import("./pages/NewsPage"));
-const CartPage = lazy(() => import("./pages/CartPage"));
+
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const FAQPage = lazy(() => import("./pages/FAQPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -67,7 +66,6 @@ const App = () => {
         <BrowserRouter>
           {cursorEnabled && <CustomCursor />}
           <FlashSaleBanner />
-          <FloatingOrdersButton />
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Index />} />
@@ -79,7 +77,7 @@ const App = () => {
               <Route path="/booster-plans" element={<BoosterPlans />} />
               <Route path="/tos" element={<TermsOfService />} />
               <Route path="/news" element={<NewsPage />} />
-              <Route path="/cart" element={<CartPage />} />
+              
               <Route path="/auth" element={<AuthPage />} />
               <Route path="/faq" element={<FAQPage />} />
               <Route path="/admin" element={<AdminLogin />} />

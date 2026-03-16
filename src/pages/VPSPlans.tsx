@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Cpu, HardDrive, Shield, Wifi, MemoryStick, ShoppingCart, Crown, Check, Server, Zap } from "lucide-react";
-import CheckoutDialog, { CheckoutPlan } from "@/components/CheckoutDialog";
+import DiscordOrderDialog from "@/components/DiscordOrderDialog";
 
 interface VPSPlan {
   name: string;
@@ -21,76 +21,56 @@ interface VPSPlan {
   price: number;
 }
 
-// Intel Gold Series
 const intelGoldPlans: VPSPlan[] = [
   { name: "Gold 4vC-16GB", cpu: "Xeon Gold 6338", cores: "4 vCores", ram: "16GB", ramType: "DDR4 3200MT/s", storage: "64GB NVMe SSD", price: 550 },
   { name: "Gold 8vC-32GB", cpu: "Xeon Gold 6338", cores: "8 vCores", ram: "32GB", ramType: "DDR4 3200MT/s", storage: "128GB NVMe SSD", price: 800 },
   { name: "Gold 8vC-64GB", cpu: "Xeon Gold 6338", cores: "8 vCores", ram: "64GB", ramType: "DDR4 3200MT/s", storage: "256GB NVMe SSD", price: 1300 },
 ];
 
-// Intel Platinum Series
 const intelPlatinumPlans: VPSPlan[] = [
-  { name: "Platinum 4vC-16GB", cpu: "Xeon Platinum 8375C", cores: "4 vCores", ram: "16GB", ramType: "DDR4 3200MT/s", storage: "64GB NVMe SSD", price: 750 },
-  { name: "Platinum 8vC-32GB", cpu: "Xeon Platinum 8375C", cores: "8 vCores", ram: "32GB", ramType: "DDR4 3200MT/s", storage: "128GB NVMe SSD", price: 1000 },
-  { name: "Platinum 8vC-64GB", cpu: "Xeon Platinum 8375C", cores: "8 vCores", ram: "64GB", ramType: "DDR4 3200MT/s", storage: "256GB NVMe SSD", price: 1500 },
+  { name: "Platinum 4vC-16GB", cpu: "Xeon Platinum 8375C", cores: "4 vCores", ram: "16GB", ramType: "DDR4 3200MT/s", storage: "80GB NVMe SSD", price: 700 },
+  { name: "Platinum 8vC-32GB", cpu: "Xeon Platinum 8375C", cores: "8 vCores", ram: "32GB", ramType: "DDR4 3200MT/s", storage: "160GB NVMe SSD", price: 1100 },
+  { name: "Platinum 8vC-64GB", cpu: "Xeon Platinum 8375C", cores: "8 vCores", ram: "64GB", ramType: "DDR4 3200MT/s", storage: "320GB NVMe SSD", price: 1800 },
 ];
 
-// Intel MAX Performance
 const intelMaxPlans: VPSPlan[] = [
-  { name: "MAX 4vC-16GB", cpu: "Xeon Platinum 8468", cores: "4 vCores", ram: "16GB", ramType: "DDR5 4800MT/s", storage: "64GB NVMe SSD", price: 900 },
-  { name: "MAX 8vC-32GB", cpu: "Xeon Platinum 8468", cores: "8 vCores", ram: "32GB", ramType: "DDR5 4800MT/s", storage: "128GB NVMe SSD", price: 1150 },
-  { name: "MAX 8vC-64GB", cpu: "Xeon Platinum 8468", cores: "8 vCores", ram: "64GB", ramType: "DDR5 4800MT/s", storage: "256GB NVMe SSD", price: 1600 },
+  { name: "MAX 4vC-16GB", cpu: "Xeon Platinum 8468", cores: "4 vCores", ram: "16GB", ramType: "DDR5 4800MT/s", storage: "100GB NVMe SSD", price: 900 },
+  { name: "MAX 8vC-32GB", cpu: "Xeon Platinum 8468", cores: "8 vCores", ram: "32GB", ramType: "DDR5 4800MT/s", storage: "200GB NVMe SSD", price: 1500 },
+  { name: "MAX 8vC-64GB", cpu: "Xeon Platinum 8468", cores: "8 vCores", ram: "64GB", ramType: "DDR5 4800MT/s", storage: "400GB NVMe SSD", price: 2500 },
 ];
 
-// AMD EPYC 7 Series
 const amdEpyc7Plans: VPSPlan[] = [
-  { name: "EPYC7 4vC-16GB", cpu: "AMD EPYC 7763", cores: "4 vCores", ram: "16GB", ramType: "DDR4 3200MT/s", storage: "64GB NVMe SSD", price: 800 },
-  { name: "EPYC7 8vC-32GB", cpu: "AMD EPYC 7763", cores: "8 vCores", ram: "32GB", ramType: "DDR4 3200MT/s", storage: "128GB NVMe SSD", price: 1050 },
-  { name: "EPYC7 8vC-64GB", cpu: "AMD EPYC 7763", cores: "8 vCores", ram: "64GB", ramType: "DDR4 3200MT/s", storage: "256GB NVMe SSD", price: 1200 },
+  { name: "EPYC7 4vC-16GB", cpu: "EPYC 7763", cores: "4 vCores", ram: "16GB", ramType: "DDR4 3200MT/s", storage: "80GB NVMe SSD", price: 650 },
+  { name: "EPYC7 8vC-32GB", cpu: "EPYC 7763", cores: "8 vCores", ram: "32GB", ramType: "DDR4 3200MT/s", storage: "160GB NVMe SSD", price: 1000 },
+  { name: "EPYC7 8vC-64GB", cpu: "EPYC 7763", cores: "8 vCores", ram: "64GB", ramType: "DDR4 3200MT/s", storage: "320GB NVMe SSD", price: 1600 },
 ];
 
-// AMD EPYC 9 Series
 const amdEpyc9Plans: VPSPlan[] = [
-  { name: "EPYC9 4vC-16GB", cpu: "AMD EPYC 9V74", cores: "4 vCores", ram: "16GB", ramType: "DDR5 4800MT/s", storage: "64GB NVMe SSD", price: 900 },
-  { name: "EPYC9 8vC-32GB", cpu: "AMD EPYC 9V74", cores: "8 vCores", ram: "32GB", ramType: "DDR5 4800MT/s", storage: "128GB NVMe SSD", price: 1100 },
-  { name: "EPYC9 8vC-64GB", cpu: "AMD EPYC 9V74", cores: "8 vCores", ram: "64GB", ramType: "DDR5 4800MT/s", storage: "256GB NVMe SSD", price: 1500 },
+  { name: "EPYC9 4vC-16GB", cpu: "EPYC 9V74", cores: "4 vCores", ram: "16GB", ramType: "DDR5 4800MT/s", storage: "100GB NVMe SSD", price: 850 },
+  { name: "EPYC9 8vC-32GB", cpu: "EPYC 9V74", cores: "8 vCores", ram: "32GB", ramType: "DDR5 4800MT/s", storage: "200GB NVMe SSD", price: 1400 },
+  { name: "EPYC9 8vC-64GB", cpu: "EPYC 9V74", cores: "8 vCores", ram: "64GB", ramType: "DDR5 4800MT/s", storage: "400GB NVMe SSD", price: 2200 },
 ];
 
-// AMD EPYC 9 Ultimate
 const amdUltimatePlans: VPSPlan[] = [
-  { name: "Ultimate 4vC-16GB", cpu: "AMD EPYC 9V45", cores: "4 vCores", ram: "16GB", ramType: "DDR5 6400MT/s", storage: "64GB NVMe SSD", price: 1000 },
-  { name: "Ultimate 8vC-32GB", cpu: "AMD EPYC 9V45", cores: "8 vCores", ram: "32GB", ramType: "DDR5 6400MT/s", storage: "128GB NVMe SSD", price: 1250 },
-  { name: "Ultimate 8vC-64GB", cpu: "AMD EPYC 9V45", cores: "8 vCores", ram: "64GB", ramType: "DDR5 6400MT/s", storage: "256GB NVMe SSD", price: 1600 },
+  { name: "Ultimate 4vC-16GB", cpu: "EPYC 9V45", cores: "4 vCores", ram: "16GB", ramType: "DDR5 6400MT/s", storage: "120GB NVMe SSD", price: 1100 },
+  { name: "Ultimate 8vC-32GB", cpu: "EPYC 9V45", cores: "8 vCores", ram: "32GB", ramType: "DDR5 6400MT/s", storage: "240GB NVMe SSD", price: 1800 },
+  { name: "Ultimate 8vC-64GB", cpu: "EPYC 9V45", cores: "8 vCores", ram: "64GB", ramType: "DDR5 6400MT/s", storage: "480GB NVMe SSD", price: 3000 },
 ];
 
 type ThemeKey = "gold" | "platinum" | "max" | "epyc7" | "epyc9" | "ultimate";
-
 const themes: Record<ThemeKey, { card: string; badge: string; price: string; icon: string; btn: string; label: string }> = {
   gold: { card: "border-yellow-500/20 bg-gradient-to-br from-yellow-500/5 to-amber-500/3", badge: "bg-yellow-500/15 text-yellow-400", price: "text-yellow-400", icon: "text-yellow-400", btn: "bg-yellow-500/15 hover:bg-yellow-500/25 text-yellow-300 border border-yellow-500/35", label: "GOLD" },
-  platinum: { card: "border-slate-400/20 bg-gradient-to-br from-slate-400/5 to-zinc-400/3", badge: "bg-slate-400/15 text-slate-300", price: "text-slate-300", icon: "text-slate-300", btn: "bg-slate-400/15 hover:bg-slate-400/25 text-slate-200 border border-slate-400/35", label: "PLATINUM" },
-  max: { card: "border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-cyan-500/3", badge: "bg-blue-500/15 text-blue-400", price: "text-blue-400", icon: "text-blue-400", btn: "bg-blue-500/15 hover:bg-blue-500/25 text-blue-300 border border-blue-500/35", label: "MAX" },
+  platinum: { card: "border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-cyan-500/3", badge: "bg-blue-500/15 text-blue-400", price: "text-blue-400", icon: "text-blue-400", btn: "bg-blue-500/15 hover:bg-blue-500/25 text-blue-300 border border-blue-500/35", label: "PLATINUM" },
+  max: { card: "border-purple-500/20 bg-gradient-to-br from-purple-500/5 to-pink-500/3", badge: "bg-purple-500/15 text-purple-400", price: "text-purple-400", icon: "text-purple-400", btn: "bg-purple-500/15 hover:bg-purple-500/25 text-purple-300 border border-purple-500/35", label: "MAX" },
   epyc7: { card: "border-red-500/20 bg-gradient-to-br from-red-500/5 to-orange-500/3", badge: "bg-red-500/15 text-red-400", price: "text-red-400", icon: "text-red-400", btn: "bg-red-500/15 hover:bg-red-500/25 text-red-300 border border-red-500/35", label: "EPYC 7" },
-  epyc9: { card: "border-purple-500/20 bg-gradient-to-br from-purple-500/5 to-violet-500/3", badge: "bg-purple-500/15 text-purple-400", price: "text-purple-400", icon: "text-purple-400", btn: "bg-purple-500/15 hover:bg-purple-500/25 text-purple-300 border border-purple-500/35", label: "EPYC 9" },
+  epyc9: { card: "border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 to-green-500/3", badge: "bg-emerald-500/15 text-emerald-400", price: "text-emerald-400", icon: "text-emerald-400", btn: "bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/35", label: "EPYC 9" },
   ultimate: { card: "border-amber-500/25 bg-gradient-to-br from-amber-500/6 to-orange-500/3", badge: "bg-amber-500/15 text-amber-400", price: "text-amber-400", icon: "text-amber-400", btn: "bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/35", label: "ULTIMATE" },
 };
 
 const VPSPlans = () => {
-  const [checkoutOpen, setCheckoutOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<CheckoutPlan | null>(null);
+  const [showDiscord, setShowDiscord] = useState(false);
 
-  const openCheckout = (plan: VPSPlan, tier: string) => {
-    setSelectedPlan({
-      name: `VPS ${tier} — ${plan.cores} / ${plan.ram}`,
-      type: "vps",
-      ram: plan.ram,
-      cpu: `${plan.cpu} (${plan.cores})`,
-      storage: plan.storage,
-      price: plan.price,
-    });
-    setCheckoutOpen(true);
-  };
-
-  const PlanGrid = ({ plans, theme, tier }: { plans: VPSPlan[]; theme: ThemeKey; tier: string }) => {
+  const PlanGrid = ({ plans, theme }: { plans: VPSPlan[]; theme: ThemeKey }) => {
     const t = themes[theme];
     return (
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -125,7 +105,7 @@ const VPSPlans = () => {
                   ))}
                 </div>
                 <CurrencyConverter amount={plan.price} />
-                <Button onClick={() => openCheckout(plan, tier)} className={`w-full gap-1.5 text-xs font-semibold tracking-wider ${t.btn}`} variant="outline" size="sm">
+                <Button onClick={() => setShowDiscord(true)} className={`w-full gap-1.5 text-xs font-semibold tracking-wider ${t.btn}`} variant="outline" size="sm">
                   <ShoppingCart className="h-3.5 w-3.5" /> ORDER NOW
                 </Button>
               </CardContent>
@@ -172,30 +152,26 @@ const VPSPlans = () => {
 
             <TabsContent value="intel">
               <SectionHeader title="Intel Gold Series" subtitle="Xeon Gold 6338 · DDR4 3200MT/s · Budget Performance" theme="gold" />
-              <PlanGrid plans={intelGoldPlans} theme="gold" tier="Intel Gold" />
-
+              <PlanGrid plans={intelGoldPlans} theme="gold" />
               <SectionHeader title="Intel Platinum" subtitle="Xeon Platinum 8375C · DDR4 3200MT/s · High Performance" theme="platinum" />
-              <PlanGrid plans={intelPlatinumPlans} theme="platinum" tier="Intel Platinum" />
-
+              <PlanGrid plans={intelPlatinumPlans} theme="platinum" />
               <SectionHeader title="MAX Performance" subtitle="Xeon Platinum 8468 · DDR5 4800MT/s · Peak Intel Power" theme="max" />
-              <PlanGrid plans={intelMaxPlans} theme="max" tier="Intel MAX" />
+              <PlanGrid plans={intelMaxPlans} theme="max" />
             </TabsContent>
 
             <TabsContent value="amd">
               <SectionHeader title="AMD EPYC 7 Series" subtitle="EPYC 7763 · DDR4 3200MT/s · Solid Multi-threaded Power" theme="epyc7" />
-              <PlanGrid plans={amdEpyc7Plans} theme="epyc7" tier="AMD EPYC 7" />
-
+              <PlanGrid plans={amdEpyc7Plans} theme="epyc7" />
               <SectionHeader title="AMD EPYC 9 Series" subtitle="EPYC 9V74 · DDR5 4800MT/s · Next-gen Efficiency" theme="epyc9" />
-              <PlanGrid plans={amdEpyc9Plans} theme="epyc9" tier="AMD EPYC 9" />
-
+              <PlanGrid plans={amdEpyc9Plans} theme="epyc9" />
               <SectionHeader title="Ultimate Performance" subtitle="EPYC 9V45 · DDR5 6400MT/s · Maximum AMD Power" theme="ultimate" />
-              <PlanGrid plans={amdUltimatePlans} theme="ultimate" tier="AMD Ultimate" />
+              <PlanGrid plans={amdUltimatePlans} theme="ultimate" />
             </TabsContent>
           </Tabs>
         </div>
       </main>
       <Footer />
-      <CheckoutDialog open={checkoutOpen} onOpenChange={setCheckoutOpen} plan={selectedPlan} />
+      <DiscordOrderDialog open={showDiscord} onOpenChange={setShowDiscord} />
     </div>
   );
 };
