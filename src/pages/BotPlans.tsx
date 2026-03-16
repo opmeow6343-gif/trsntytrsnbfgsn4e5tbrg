@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Bot, HardDrive, Shield, Wifi, MemoryStick, ShoppingCart } from "lucide-react";
-import CheckoutDialog, { CheckoutPlan } from "@/components/CheckoutDialog";
+import DiscordOrderDialog from "@/components/DiscordOrderDialog";
 
 const botPlans = [
   { ram: "512 MB", ramMb: 512, price: 25, storage: "2.5 GB NVMe" },
@@ -26,20 +26,7 @@ const botPlans = [
 ];
 
 const BotPlans = () => {
-  const [checkoutOpen, setCheckoutOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<CheckoutPlan | null>(null);
-
-  const openCheckout = (plan: typeof botPlans[0]) => {
-    setSelectedPlan({
-      name: `Bot Hosting ${plan.ram}`,
-      type: "bot",
-      ram: plan.ram,
-      cpu: "Shared vCPU",
-      storage: plan.storage,
-      price: plan.price,
-    });
-    setCheckoutOpen(true);
-  };
+  const [showDiscord, setShowDiscord] = useState(false);
 
   return (
     <div className="min-h-screen bg-background relative">
@@ -67,7 +54,7 @@ const BotPlans = () => {
                       ))}
                     </div>
                     <CurrencyConverter amount={plan.price} />
-                    <Button onClick={() => openCheckout(plan)} className="w-full glow-primary gap-1.5 text-xs font-semibold" size="sm">
+                    <Button onClick={() => setShowDiscord(true)} className="w-full glow-primary gap-1.5 text-xs font-semibold" size="sm">
                       <ShoppingCart className="h-3.5 w-3.5" /> ORDER NOW
                     </Button>
                   </CardContent>
@@ -78,7 +65,7 @@ const BotPlans = () => {
         </div>
       </main>
       <Footer />
-      <CheckoutDialog open={checkoutOpen} onOpenChange={setCheckoutOpen} plan={selectedPlan} />
+      <DiscordOrderDialog open={showDiscord} onOpenChange={setShowDiscord} />
     </div>
   );
 };

@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Cpu, HardDrive, Shield, Wifi, MemoryStick, ShoppingCart, Crown, Check } from "lucide-react";
-import CheckoutDialog, { CheckoutPlan } from "@/components/CheckoutDialog";
+import DiscordOrderDialog from "@/components/DiscordOrderDialog";
 
 interface Plan { ram: string; ramGb: number; price: number; storage: string; players: number; cpu: string; cpuType: string; }
 
@@ -33,22 +33,7 @@ const planTheme = {
 };
 
 const MinecraftPlans = () => {
-  const [checkoutOpen, setCheckoutOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<CheckoutPlan | null>(null);
-
-  const openCheckout = (plan: Plan) => {
-    setSelectedPlan({
-      name: `Minecraft ${plan.cpuType === "intel" ? "Intel" : plan.cpuType === "amd" ? "AMD" : "Premium"} ${plan.ram}`,
-      type: "minecraft",
-      ram: plan.ram,
-      cpu: plan.cpu,
-      storage: plan.storage,
-      price: plan.price,
-      players: plan.players,
-      cpuType: plan.cpuType,
-    });
-    setCheckoutOpen(true);
-  };
+  const [showDiscord, setShowDiscord] = useState(false);
 
   const PlanGrid = ({ plans, type }: { plans: Plan[]; type: "intel" | "amd" | "premium" }) => {
     const t = planTheme[type];
@@ -69,7 +54,7 @@ const MinecraftPlans = () => {
                 </div>
                 <div className="flex items-center gap-1 text-xs text-muted-foreground"><Check className={`h-3 w-3 ${t.icon}`} />Up to {plan.players} players</div>
                 <CurrencyConverter amount={plan.price} />
-                <Button onClick={() => openCheckout(plan)} className={`w-full gap-1.5 text-xs font-semibold tracking-wider ${t.btn}`} variant="outline" size="sm">
+                <Button onClick={() => setShowDiscord(true)} className={`w-full gap-1.5 text-xs font-semibold tracking-wider ${t.btn}`} variant="outline" size="sm">
                   <ShoppingCart className="h-3.5 w-3.5" /> ORDER NOW
                 </Button>
               </CardContent>
@@ -106,7 +91,7 @@ const MinecraftPlans = () => {
         </div>
       </main>
       <Footer />
-      <CheckoutDialog open={checkoutOpen} onOpenChange={setCheckoutOpen} plan={selectedPlan} />
+      <DiscordOrderDialog open={showDiscord} onOpenChange={setShowDiscord} />
     </div>
   );
 };
