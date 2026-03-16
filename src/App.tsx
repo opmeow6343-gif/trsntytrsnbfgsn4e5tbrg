@@ -20,7 +20,7 @@ const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminSettings = lazy(() => import("./pages/AdminSettings"));
 const NewsPage = lazy(() => import("./pages/NewsPage"));
-const CartPage = lazy(() => import("./pages/CartPage"));
+
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const FAQPage = lazy(() => import("./pages/FAQPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
