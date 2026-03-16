@@ -66,7 +66,6 @@ const App = () => {
         <BrowserRouter>
           {cursorEnabled && <CustomCursor />}
           <FlashSaleBanner />
-          <FloatingOrdersButton />
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Index />} />
