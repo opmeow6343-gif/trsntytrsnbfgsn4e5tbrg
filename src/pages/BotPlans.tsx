@@ -54,7 +54,7 @@ const BotPlans = () => {
                       ))}
                     </div>
                     <CurrencyConverter amount={plan.price} />
-                    <Button onClick={() => setShowDiscord(true)} className="w-full glow-primary gap-1.5 text-xs font-semibold" size="sm">
+                    <Button onClick={() => window.open(BILLING_URL, "_blank")} className="w-full glow-primary gap-1.5 text-xs font-semibold" size="sm">
                       <ShoppingCart className="h-3.5 w-3.5" /> ORDER NOW
                     </Button>
                   </CardContent>
