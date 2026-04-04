@@ -23,7 +23,7 @@ const getPlayerSlots = (ram: number) => { if (ram <= 2) return 20; if (ram <= 4)
 const MinecraftHosting = () => {
   const [cpu, setCpu] = useState("intel");
   const [ram, setRam] = useState(4);
-  const [showDiscord, setShowDiscord] = useState(false);
+  const BILLING_URL = "https://billing.zeyroncloud.com";
   const [settings, setSettingsState] = useState<SiteSettings>(DEFAULT_SETTINGS);
 
   useEffect(() => { getSettings().then(setSettingsState); }, []);
