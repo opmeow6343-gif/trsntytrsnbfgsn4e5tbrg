@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Cpu, HardDrive, Shield, Wifi, MemoryStick, ShoppingCart, Crown, Check } from "lucide-react";
-import DiscordOrderDialog from "@/components/DiscordOrderDialog";
+
 
 interface Plan { ram: string; ramGb: number; price: number; storage: string; players: number; cpu: string; cpuType: string; }
 
