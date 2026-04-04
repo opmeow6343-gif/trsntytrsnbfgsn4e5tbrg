@@ -21,7 +21,7 @@ const cardVariants = {
 
 const PricingPreview = () => {
   const navigate = useNavigate();
-  const [showDiscord, setShowDiscord] = useState(false);
+  
 
   const handlePlanClick = (plan: typeof plans[0]) => {
     if (plan.title === "Intel MC") navigate("/minecraft-plans");
