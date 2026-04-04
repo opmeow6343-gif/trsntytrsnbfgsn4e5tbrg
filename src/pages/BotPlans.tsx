@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Bot, HardDrive, Shield, Wifi, MemoryStick, ShoppingCart } from "lucide-react";
-import DiscordOrderDialog from "@/components/DiscordOrderDialog";
+
 
 const botPlans = [
   { ram: "512 MB", ramMb: 512, price: 25, storage: "2.5 GB NVMe" },
