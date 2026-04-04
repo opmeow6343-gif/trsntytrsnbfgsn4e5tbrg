@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Cpu, HardDrive, Shield, Wifi, MemoryStick, ShoppingCart, Crown, Check, Server, Zap } from "lucide-react";
-import DiscordOrderDialog from "@/components/DiscordOrderDialog";
+
 
 interface VPSPlan {
   name: string;
@@ -68,7 +68,7 @@ const themes: Record<ThemeKey, { card: string; badge: string; price: string; ico
 };
 
 const VPSPlans = () => {
-  const [showDiscord, setShowDiscord] = useState(false);
+  const BILLING_URL = "https://billing.zeyroncloud.com";
 
   const PlanGrid = ({ plans, theme }: { plans: VPSPlan[]; theme: ThemeKey }) => {
     const t = themes[theme];
@@ -105,7 +105,7 @@ const VPSPlans = () => {
                   ))}
                 </div>
                 <CurrencyConverter amount={plan.price} />
-                <Button onClick={() => setShowDiscord(true)} className={`w-full gap-1.5 text-xs font-semibold tracking-wider ${t.btn}`} variant="outline" size="sm">
+                <Button onClick={() => window.open(BILLING_URL, "_blank")} className={`w-full gap-1.5 text-xs font-semibold tracking-wider ${t.btn}`} variant="outline" size="sm">
                   <ShoppingCart className="h-3.5 w-3.5" /> ORDER NOW
                 </Button>
               </CardContent>
@@ -171,7 +171,7 @@ const VPSPlans = () => {
         </div>
       </main>
       <Footer />
-      <DiscordOrderDialog open={showDiscord} onOpenChange={setShowDiscord} />
+      
     </div>
   );
 };

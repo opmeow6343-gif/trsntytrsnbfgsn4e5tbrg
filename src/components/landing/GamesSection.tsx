@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import DiscordOrderDialog from "@/components/DiscordOrderDialog";
+const BILLING_URL = "https://billing.zeyroncloud.com";
 
 import minecraftImg from "@/assets/games/minecraft.png";
 import hytaleImg from "@/assets/games/hytale.png";
@@ -81,8 +81,6 @@ const TiltCard = ({ game, index, onClick }: { game: typeof games[0]; index: numb
 };
 
 const GamesSection = () => {
-  const [showDiscord, setShowDiscord] = useState(false);
-
   return (
     <section className="relative py-28 overflow-hidden">
       <div className="container mx-auto px-4">
@@ -126,7 +124,7 @@ const GamesSection = () => {
 
         <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 max-w-4xl mx-auto" style={{ perspective: "1200px" }}>
           {games.map((game, i) => (
-            <TiltCard key={game.name} game={game} index={i} onClick={() => setShowDiscord(true)} />
+            <TiltCard key={game.name} game={game} index={i} onClick={() => window.open(BILLING_URL, "_blank")} />
           ))}
         </div>
 
@@ -138,13 +136,13 @@ const GamesSection = () => {
           className="text-center mt-10"
         >
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button variant="outline" size="sm" className="gap-2 text-xs border-border/30 hover:border-primary/30 rounded-lg" onClick={() => setShowDiscord(true)}>
+            <Button variant="outline" size="sm" className="gap-2 text-xs border-border/30 hover:border-primary/30 rounded-lg" onClick={() => window.open(BILLING_URL, "_blank")}>
               View All <ArrowRight className="h-3.5 w-3.5" />
             </Button>
           </motion.div>
         </motion.div>
       </div>
-      <DiscordOrderDialog open={showDiscord} onOpenChange={setShowDiscord} />
+      
     </section>
   );
 };

@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles, Zap, Crown, MemoryStick, HardDrive, Cpu, Shield, Gift, Wifi, Check, XCircle } from "lucide-react";
 import { getSettings } from "@/lib/storage";
-import DiscordOrderDialog from "@/components/DiscordOrderDialog";
+const BILLING_URL = "https://billing.zeyroncloud.com";
 
 const boosterPlans = [
   {
@@ -33,7 +33,7 @@ const mediaPlans = [
 ];
 
 const BoosterPlans = () => {
-  const [showDiscord, setShowDiscord] = useState(false);
+  
   const [boosterEnabled, setBoosterEnabled] = useState(true);
   const [loadingSettings, setLoadingSettings] = useState(true);
 
@@ -103,7 +103,7 @@ const BoosterPlans = () => {
                     <ul className="space-y-1.5">
                       {plan.features.map(f => (<li key={f} className="text-xs text-muted-foreground flex items-center gap-2"><Check className={`h-3 w-3 ${plan.iconColor} shrink-0`} />{f}</li>))}
                     </ul>
-                    <Button onClick={() => setShowDiscord(true)} className={`w-full gap-2 text-xs font-semibold ${plan.btnClass}`} variant="outline">
+                    <Button onClick={() => window.open(BILLING_URL, "_blank")} className={`w-full gap-2 text-xs font-semibold ${plan.btnClass}`} variant="outline">
                       <Gift className="h-3.5 w-3.5" /> CLAIM NOW
                     </Button>
                   </CardContent>
@@ -140,7 +140,7 @@ const BoosterPlans = () => {
                     <ul className="space-y-1.5">
                       {plan.features.map(f => (<li key={f} className="text-xs text-muted-foreground flex items-center gap-2"><Check className="h-3 w-3 text-pink-400 shrink-0" />{f}</li>))}
                     </ul>
-                    <Button onClick={() => setShowDiscord(true)} className="w-full gap-2 text-xs font-semibold bg-pink-500/20 hover:bg-pink-500/30 text-pink-300 border border-pink-500/40" variant="outline">
+                    <Button onClick={() => window.open(BILLING_URL, "_blank")} className="w-full gap-2 text-xs font-semibold bg-pink-500/20 hover:bg-pink-500/30 text-pink-300 border border-pink-500/40" variant="outline">
                       <Gift className="h-3.5 w-3.5" /> APPLY NOW
                     </Button>
                   </CardContent>
@@ -151,7 +151,7 @@ const BoosterPlans = () => {
         </div>
       </main>
       <Footer />
-      <DiscordOrderDialog open={showDiscord} onOpenChange={setShowDiscord} />
+      
     </div>
   );
 };

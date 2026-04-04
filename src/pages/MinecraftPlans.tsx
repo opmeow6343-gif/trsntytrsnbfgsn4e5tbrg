@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Cpu, HardDrive, Shield, Wifi, MemoryStick, ShoppingCart, Crown, Check } from "lucide-react";
-import DiscordOrderDialog from "@/components/DiscordOrderDialog";
+
 
 interface Plan { ram: string; ramGb: number; price: number; storage: string; players: number; cpu: string; cpuType: string; }
 
@@ -33,7 +33,7 @@ const planTheme = {
 };
 
 const MinecraftPlans = () => {
-  const [showDiscord, setShowDiscord] = useState(false);
+  const BILLING_URL = "https://billing.zeyroncloud.com";
 
   const PlanGrid = ({ plans, type }: { plans: Plan[]; type: "intel" | "amd" | "premium" }) => {
     const t = planTheme[type];
@@ -54,7 +54,7 @@ const MinecraftPlans = () => {
                 </div>
                 <div className="flex items-center gap-1 text-xs text-muted-foreground"><Check className={`h-3 w-3 ${t.icon}`} />Up to {plan.players} players</div>
                 <CurrencyConverter amount={plan.price} />
-                <Button onClick={() => setShowDiscord(true)} className={`w-full gap-1.5 text-xs font-semibold tracking-wider ${t.btn}`} variant="outline" size="sm">
+                <Button onClick={() => window.open(BILLING_URL, "_blank")} className={`w-full gap-1.5 text-xs font-semibold tracking-wider ${t.btn}`} variant="outline" size="sm">
                   <ShoppingCart className="h-3.5 w-3.5" /> ORDER NOW
                 </Button>
               </CardContent>
@@ -91,7 +91,7 @@ const MinecraftPlans = () => {
         </div>
       </main>
       <Footer />
-      <DiscordOrderDialog open={showDiscord} onOpenChange={setShowDiscord} />
+      
     </div>
   );
 };

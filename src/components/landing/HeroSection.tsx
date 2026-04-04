@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView, 
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ExternalLink, Zap, Shield, Clock, Server } from "lucide-react";
 import AnimatedBackground from "@/components/AnimatedBackground";
-import DiscordOrderDialog from "@/components/DiscordOrderDialog";
+
 import logo from "@/assets/zeyroncloud-logo.png";
 
 const letterVariants = {
@@ -74,7 +74,7 @@ const AnimatedCounter = ({ value, suffix = "" }: { value: number; suffix?: strin
 };
 
 const HeroSection = () => {
-  const [showDiscord, setShowDiscord] = useState(false);
+  
   const navigate = useNavigate();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -247,7 +247,7 @@ const HeroSection = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
       />
-      <DiscordOrderDialog open={showDiscord} onOpenChange={setShowDiscord} />
+      
     </section>
   );
 };

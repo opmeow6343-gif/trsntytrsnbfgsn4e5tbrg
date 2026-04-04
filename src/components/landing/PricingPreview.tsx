@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, Crown, Sparkles, Server } from "lucide-react";
-import DiscordOrderDialog from "@/components/DiscordOrderDialog";
+
 import { useNavigate } from "react-router-dom";
 
 const plans = [
@@ -21,7 +20,7 @@ const cardVariants = {
 
 const PricingPreview = () => {
   const navigate = useNavigate();
-  const [showDiscord, setShowDiscord] = useState(false);
+  
 
   const handlePlanClick = (plan: typeof plans[0]) => {
     if (plan.title === "Intel MC") navigate("/minecraft-plans");
@@ -81,7 +80,7 @@ const PricingPreview = () => {
           ))}
         </div>
       </div>
-      <DiscordOrderDialog open={showDiscord} onOpenChange={setShowDiscord} />
+      
     </section>
   );
 };
