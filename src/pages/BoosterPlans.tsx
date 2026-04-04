@@ -33,7 +33,7 @@ const mediaPlans = [
 ];
 
 const BoosterPlans = () => {
-  const [showDiscord, setShowDiscord] = useState(false);
+  
   const [boosterEnabled, setBoosterEnabled] = useState(true);
   const [loadingSettings, setLoadingSettings] = useState(true);
 
