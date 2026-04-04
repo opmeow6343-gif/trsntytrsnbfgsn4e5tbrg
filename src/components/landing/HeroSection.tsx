@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView, animate } from "framer-motion";
 import { Button } from "@/components/ui/button";
