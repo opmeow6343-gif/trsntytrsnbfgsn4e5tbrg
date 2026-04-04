@@ -124,7 +124,7 @@ const GamesSection = () => {
 
         <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 max-w-4xl mx-auto" style={{ perspective: "1200px" }}>
           {games.map((game, i) => (
-            <TiltCard key={game.name} game={game} index={i} onClick={() => setShowDiscord(true)} />
+            <TiltCard key={game.name} game={game} index={i} onClick={() => window.open(BILLING_URL, "_blank")} />
           ))}
         </div>
 
