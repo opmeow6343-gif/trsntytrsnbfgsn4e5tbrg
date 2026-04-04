@@ -247,7 +247,7 @@ const HeroSection = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
       />
-      <DiscordOrderDialog open={showDiscord} onOpenChange={setShowDiscord} />
+      
     </section>
   );
 };

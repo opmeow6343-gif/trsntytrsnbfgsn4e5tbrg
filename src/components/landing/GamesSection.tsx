@@ -142,7 +142,7 @@ const GamesSection = () => {
           </motion.div>
         </motion.div>
       </div>
-      <DiscordOrderDialog open={showDiscord} onOpenChange={setShowDiscord} />
+      
     </section>
   );
 };

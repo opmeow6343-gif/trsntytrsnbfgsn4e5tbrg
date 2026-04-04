@@ -81,7 +81,7 @@ const PricingPreview = () => {
           ))}
         </div>
       </div>
-      <DiscordOrderDialog open={showDiscord} onOpenChange={setShowDiscord} />
+      
     </section>
   );
 };
