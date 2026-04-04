@@ -81,8 +81,6 @@ const TiltCard = ({ game, index, onClick }: { game: typeof games[0]; index: numb
 };
 
 const GamesSection = () => {
-  const [showDiscord, setShowDiscord] = useState(false);
-
   return (
     <section className="relative py-28 overflow-hidden">
       <div className="container mx-auto px-4">
