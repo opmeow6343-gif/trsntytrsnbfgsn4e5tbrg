@@ -26,7 +26,7 @@ const botPlans = [
 ];
 
 const BotPlans = () => {
-  const [showDiscord, setShowDiscord] = useState(false);
+  const BILLING_URL = "https://billing.zeyroncloud.com";
 
   return (
     <div className="min-h-screen bg-background relative">
