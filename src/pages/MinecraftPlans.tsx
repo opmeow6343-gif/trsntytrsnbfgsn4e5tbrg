@@ -33,7 +33,7 @@ const planTheme = {
 };
 
 const MinecraftPlans = () => {
-  const [showDiscord, setShowDiscord] = useState(false);
+  const BILLING_URL = "https://billing.zeyroncloud.com";
 
   const PlanGrid = ({ plans, type }: { plans: Plan[]; type: "intel" | "amd" | "premium" }) => {
     const t = planTheme[type];
