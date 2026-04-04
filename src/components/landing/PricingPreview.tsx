@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, Crown, Sparkles, Server } from "lucide-react";
-import DiscordOrderDialog from "@/components/DiscordOrderDialog";
+
 import { useNavigate } from "react-router-dom";
 
 const plans = [
