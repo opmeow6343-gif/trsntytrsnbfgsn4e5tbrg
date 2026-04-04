@@ -140,7 +140,7 @@ const BoosterPlans = () => {
                     <ul className="space-y-1.5">
                       {plan.features.map(f => (<li key={f} className="text-xs text-muted-foreground flex items-center gap-2"><Check className="h-3 w-3 text-pink-400 shrink-0" />{f}</li>))}
                     </ul>
-                    <Button onClick={() => setShowDiscord(true)} className="w-full gap-2 text-xs font-semibold bg-pink-500/20 hover:bg-pink-500/30 text-pink-300 border border-pink-500/40" variant="outline">
+                    <Button onClick={() => window.open(BILLING_URL, "_blank")} className="w-full gap-2 text-xs font-semibold bg-pink-500/20 hover:bg-pink-500/30 text-pink-300 border border-pink-500/40" variant="outline">
                       <Gift className="h-3.5 w-3.5" /> APPLY NOW
                     </Button>
                   </CardContent>
