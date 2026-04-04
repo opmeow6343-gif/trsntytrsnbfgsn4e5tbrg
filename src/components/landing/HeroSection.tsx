@@ -74,7 +74,7 @@ const AnimatedCounter = ({ value, suffix = "" }: { value: number; suffix?: strin
 };
 
 const HeroSection = () => {
-  const [showDiscord, setShowDiscord] = useState(false);
+  
   const navigate = useNavigate();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
