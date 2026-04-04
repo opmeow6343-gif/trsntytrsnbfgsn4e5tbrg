@@ -171,7 +171,7 @@ const VPSPlans = () => {
         </div>
       </main>
       <Footer />
-      <DiscordOrderDialog open={showDiscord} onOpenChange={setShowDiscord} />
+      
     </div>
   );
 };

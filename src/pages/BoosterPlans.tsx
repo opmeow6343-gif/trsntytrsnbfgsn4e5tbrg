@@ -151,7 +151,7 @@ const BoosterPlans = () => {
         </div>
       </main>
       <Footer />
-      <DiscordOrderDialog open={showDiscord} onOpenChange={setShowDiscord} />
+      
     </div>
   );
 };
