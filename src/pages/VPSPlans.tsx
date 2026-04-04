@@ -68,7 +68,7 @@ const themes: Record<ThemeKey, { card: string; badge: string; price: string; ico
 };
 
 const VPSPlans = () => {
-  const [showDiscord, setShowDiscord] = useState(false);
+  const BILLING_URL = "https://billing.zeyroncloud.com";
 
   const PlanGrid = ({ plans, theme }: { plans: VPSPlan[]; theme: ThemeKey }) => {
     const t = themes[theme];
