@@ -81,7 +81,7 @@ const MinecraftHosting = () => {
                     <div className="flex items-baseline justify-between"><span className="text-muted-foreground">Monthly</span><span className={`font-extrabold text-3xl ${isPremium ? "text-amber-400" : "text-primary"}`} style={{ fontFamily: "'Outfit', sans-serif" }}>₹{price}</span></div>
                     <div className="flex items-center justify-between mt-1"><span className="text-xs text-muted-foreground">₹{pricePerGb}/GB × {ram} GB</span><CurrencyConverter amount={price} /></div>
                   </div>
-                  <Button onClick={() => setShowDiscord(true)} className={`w-full gap-2 font-semibold text-sm ${isPremium ? "glow-premium" : "glow-primary"}`} size="lg"><ShoppingCart className="h-4 w-4" /> ORDER NOW</Button>
+                  <Button onClick={() => window.open(BILLING_URL, "_blank")} className={`w-full gap-2 font-semibold text-sm ${isPremium ? "glow-premium" : "glow-primary"}`} size="lg"><ShoppingCart className="h-4 w-4" /> ORDER NOW</Button>
                   <a href="https://discord.gg/zeyron" target="_blank" rel="noopener noreferrer"><Button variant="outline" className="w-full gap-2 text-sm border-primary/30" size="lg"><ExternalLink className="h-4 w-4" /> JOIN DISCORD</Button></a>
                 </CardContent>
               </Card>
