@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles, Zap, Crown, MemoryStick, HardDrive, Cpu, Shield, Gift, Wifi, Check, XCircle } from "lucide-react";
 import { getSettings } from "@/lib/storage";
-import DiscordOrderDialog from "@/components/DiscordOrderDialog";
+const BILLING_URL = "https://billing.zeyroncloud.com";
 
 const boosterPlans = [
   {
