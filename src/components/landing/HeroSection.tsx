@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView, 
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ExternalLink, Zap, Shield, Clock, Server } from "lucide-react";
 import AnimatedBackground from "@/components/AnimatedBackground";
-import DiscordOrderDialog from "@/components/DiscordOrderDialog";
+
 import logo from "@/assets/zeyroncloud-logo.png";
 
 const letterVariants = {
