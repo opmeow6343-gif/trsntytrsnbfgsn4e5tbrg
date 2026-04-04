@@ -136,7 +136,7 @@ const GamesSection = () => {
           className="text-center mt-10"
         >
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button variant="outline" size="sm" className="gap-2 text-xs border-border/30 hover:border-primary/30 rounded-lg" onClick={() => setShowDiscord(true)}>
+            <Button variant="outline" size="sm" className="gap-2 text-xs border-border/30 hover:border-primary/30 rounded-lg" onClick={() => window.open(BILLING_URL, "_blank")}>
               View All <ArrowRight className="h-3.5 w-3.5" />
             </Button>
           </motion.div>
