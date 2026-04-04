@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Server, Cpu, HardDrive, Users, MemoryStick, ShoppingCart, Crown, ExternalLink } from "lucide-react";
 import { getSettings, DEFAULT_SETTINGS } from "@/lib/storage";
 import type { SiteSettings } from "@/lib/storage";
-import DiscordOrderDialog from "@/components/DiscordOrderDialog";
+
 
 const PRICES: Record<string, number> = { intel: 15, amd: 30, premium: 45 };
 const cpuTiers = [
