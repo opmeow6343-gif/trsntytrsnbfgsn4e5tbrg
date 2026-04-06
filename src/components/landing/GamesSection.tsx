@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-const BILLING_URL = "https://billing.zeyroncloud.com";
+const BILLING_URL = "https://client.zeyroncloud.com/register";
 
 import minecraftImg from "@/assets/games/minecraft.png";
 import hytaleImg from "@/assets/games/hytale.png";
