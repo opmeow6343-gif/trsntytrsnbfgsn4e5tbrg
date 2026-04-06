@@ -10,14 +10,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Bot, MemoryStick, HardDrive, Wifi, ShoppingCart, ExternalLink, Shield } from "lucide-react";
 import { getSettings, DEFAULT_SETTINGS } from "@/lib/storage";
 import type { SiteSettings } from "@/lib/storage";
-import DiscordOrderDialog from "@/components/DiscordOrderDialog";
 
+const DISCORD_LINK = "https://discord.gg/KWaU6GMmgs";
 const PRICE_PER_GB = 50;
 const formatRam = (mb: number) => mb >= 1024 ? `${mb / 1024} GB` : `${mb} MB`;
 
 const BotHosting = () => {
   const [ramMb, setRamMb] = useState(1024);
-  const [showDiscord, setShowDiscord] = useState(false);
   const [settings, setSettingsState] = useState<SiteSettings>(DEFAULT_SETTINGS);
 
   useEffect(() => { getSettings().then(setSettingsState); }, []);
@@ -61,7 +60,7 @@ const BotHosting = () => {
                     <div className="flex items-center justify-between mt-1"><span className="text-xs text-muted-foreground">₹{PRICE_PER_GB}/GB × {(ramMb / 1024).toFixed(1)} GB</span><CurrencyConverter amount={price} /></div>
                   </div>
                   <Button onClick={() => window.open("https://client.zeyroncloud.com/register", "_blank")} className="w-full glow-primary gap-2 font-semibold text-sm" size="lg"><ShoppingCart className="h-4 w-4" /> Visit Billing</Button>
-                  <a href="https://discord.gg/zeyron" target="_blank" rel="noopener noreferrer"><Button variant="outline" className="w-full gap-2 text-sm border-primary/30" size="lg"><ExternalLink className="h-4 w-4" /> JOIN DISCORD</Button></a>
+                  <a href={DISCORD_LINK} target="_blank" rel="noopener noreferrer"><Button variant="outline" className="w-full gap-2 text-sm border-primary/30" size="lg"><ExternalLink className="h-4 w-4" /> JOIN DISCORD</Button></a>
                 </CardContent>
               </Card>
             </motion.div>
@@ -69,7 +68,6 @@ const BotHosting = () => {
         </div>
       </main>
       <Footer />
-      <DiscordOrderDialog open={showDiscord} onOpenChange={setShowDiscord} />
     </div>
   );
 };

@@ -11,17 +11,18 @@ import { Server, Cpu, HardDrive, Users, MemoryStick, ShoppingCart, Crown, Extern
 import { getSettings, DEFAULT_SETTINGS } from "@/lib/storage";
 import type { SiteSettings } from "@/lib/storage";
 
-
-const PRICES: Record<string, number> = { intel: 15, amd: 30, premium: 45 };
+const PRICES: Record<string, number> = { starter: 20, standard: 40, premium: 55 };
 const cpuTiers = [
-  { id: "intel", label: "Intel Xeon", description: "Reliable & cost-effective • ₹15/GB" },
-  { id: "amd", label: "AMD Ryzen 9", description: "Max performance • ₹30/GB" },
-  { id: "premium", label: "Premium", description: "Ultimate experience • ₹45/GB", isPremium: true },
+  { id: "starter", label: "Starter", description: "Reliable & cost-effective • ₹20/GB" },
+  { id: "standard", label: "Standard", description: "Max performance • ₹40/GB" },
+  { id: "premium", label: "Premium", description: "Ultimate experience • ₹55/GB", isPremium: true },
 ];
 const getPlayerSlots = (ram: number) => { if (ram <= 2) return 20; if (ram <= 4) return 40; if (ram <= 8) return 80; if (ram <= 16) return 160; if (ram <= 32) return 300; return 500; };
 
+const DISCORD_LINK = "https://discord.gg/KWaU6GMmgs";
+
 const MinecraftHosting = () => {
-  const [cpu, setCpu] = useState("intel");
+  const [cpu, setCpu] = useState("starter");
   const [ram, setRam] = useState(4);
   const BILLING_URL = "https://client.zeyroncloud.com/register";
   const [settings, setSettingsState] = useState<SiteSettings>(DEFAULT_SETTINGS);
@@ -73,7 +74,7 @@ const MinecraftHosting = () => {
                 <CardHeader><CardTitle className="font-bold text-sm tracking-wider flex items-center gap-2" style={{ fontFamily: "'Outfit', sans-serif" }}><Server className={`h-5 w-5 ${isPremium ? "text-amber-400" : "text-primary"}`} /> YOUR SERVER</CardTitle></CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-3">
-                    {[{ icon: Cpu, label: "CPU", value: cpu === "intel" ? "Intel Xeon" : cpu === "amd" ? "AMD Ryzen 9" : "Premium Ryzen 9" }, { icon: MemoryStick, label: "RAM", value: `${ram} GB DDR4` }, { icon: HardDrive, label: "Storage", value: `${storage} GB NVMe` }, { icon: Users, label: "Players", value: `${getPlayerSlots(ram)}` }].map(item => (
+                    {[{ icon: Cpu, label: "CPU", value: cpu === "starter" ? "Intel Xeon" : cpu === "standard" ? "AMD Ryzen 9" : "Premium Ryzen 9" }, { icon: MemoryStick, label: "RAM", value: `${ram} GB DDR4` }, { icon: HardDrive, label: "Storage", value: `${storage} GB NVMe` }, { icon: Users, label: "Players", value: `${getPlayerSlots(ram)}` }].map(item => (
                       <div key={item.label} className="flex items-center justify-between rounded-lg bg-secondary/50 px-4 py-3"><span className="flex items-center gap-2 text-sm text-muted-foreground"><item.icon className="h-4 w-4" /> {item.label}</span><span className="text-sm font-semibold">{item.value}</span></div>
                     ))}
                   </div>
@@ -82,7 +83,7 @@ const MinecraftHosting = () => {
                     <div className="flex items-center justify-between mt-1"><span className="text-xs text-muted-foreground">₹{pricePerGb}/GB × {ram} GB</span><CurrencyConverter amount={price} /></div>
                   </div>
                   <Button onClick={() => window.open(BILLING_URL, "_blank")} className={`w-full gap-2 font-semibold text-sm ${isPremium ? "glow-premium" : "glow-primary"}`} size="lg"><ShoppingCart className="h-4 w-4" /> Visit Billing</Button>
-                  <a href="https://discord.gg/zeyron" target="_blank" rel="noopener noreferrer"><Button variant="outline" className="w-full gap-2 text-sm border-primary/30" size="lg"><ExternalLink className="h-4 w-4" /> JOIN DISCORD</Button></a>
+                  <a href={DISCORD_LINK} target="_blank" rel="noopener noreferrer"><Button variant="outline" className="w-full gap-2 text-sm border-primary/30" size="lg"><ExternalLink className="h-4 w-4" /> JOIN DISCORD</Button></a>
                 </CardContent>
               </Card>
             </motion.div>
@@ -90,7 +91,6 @@ const MinecraftHosting = () => {
         </div>
       </main>
       <Footer />
-      
     </div>
   );
 };

@@ -4,8 +4,9 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView, 
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ExternalLink, Zap, Shield, Clock, Server } from "lucide-react";
 import AnimatedBackground from "@/components/AnimatedBackground";
-
 import logo from "@/assets/zeyroncloud-logo.png";
+
+const DISCORD_LINK = "https://discord.gg/KWaU6GMmgs";
 
 const letterVariants = {
   hidden: { opacity: 0, y: 50, rotateX: -60 },
@@ -74,7 +75,6 @@ const AnimatedCounter = ({ value, suffix = "" }: { value: number; suffix?: strin
 };
 
 const HeroSection = () => {
-  
   const navigate = useNavigate();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -85,7 +85,7 @@ const HeroSection = () => {
     { icon: Zap, label: "Deploy", display: <span>Instant</span> },
     { icon: Shield, label: "DDoS Shield", display: <><AnimatedCounter value={99.99} suffix="%" /></> },
     { icon: Clock, label: "Support", display: <span>24/7</span> },
-    { icon: Server, label: "Per GB/Mo", display: <>₹<AnimatedCounter value={15} /></> },
+    { icon: Server, label: "Per GB/Mo", display: <>₹<AnimatedCounter value={20} /></> },
   ];
 
   return (
@@ -94,7 +94,6 @@ const HeroSection = () => {
 
       <motion.div style={{ y: heroY, opacity: heroOpacity }} className="container relative z-10 mx-auto px-4 py-28">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Logo with 3D spin */}
           <motion.div
             initial={{ opacity: 0, scale: 0, rotate: -180 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -122,7 +121,6 @@ const HeroSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* Badge with slide-in */}
           <motion.div
             initial={{ opacity: 0, scale: 0.5, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -142,41 +140,38 @@ const HeroSection = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
             >
-              LIVE — GAME SERVER HOSTING
+              HIGH PERFORMANCE GAMING WITHOUT LAG
             </motion.span>
           </motion.div>
 
-          {/* Letter-by-letter heading */}
           <motion.h1
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-[0.9] tracking-tighter mb-6 font-display"
             style={{ perspective: "1000px" }}
           >
             <div className="block text-foreground overflow-hidden">
-              <AnimatedText text="Game Hosting" />
+              <AnimatedText text="Host your own" />
             </div>
             <div className="block gradient-text overflow-hidden">
-              <AnimatedText text="Reimagined." />
+              <AnimatedText text="Game Servers" />
             </div>
           </motion.h1>
 
-          {/* Subtitle with word fade */}
           <motion.p
             className="text-muted-foreground text-base sm:text-lg max-w-lg mx-auto mb-10 leading-relaxed"
             initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            Minecraft, Palworld, Rust & more — instant deploy, DDoS protection, 24/7 support. From{" "}
+            Experience lightning-fast performance, unbeatable reliability, and 24/7 support for all your favorite games. Starting from{" "}
             <motion.span
               className="text-primary font-semibold"
               animate={{ textShadow: ["0 0 0px hsl(160 100% 45% / 0)", "0 0 20px hsl(160 100% 45% / 0.5)", "0 0 0px hsl(160 100% 45% / 0)"] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              ₹15/GB
+              ₹20/GB
             </motion.span>.
           </motion.p>
 
-          {/* CTAs with magnetic effect */}
           <motion.div
             className="flex flex-col sm:flex-row gap-3.5 justify-center mb-20"
             initial={{ opacity: 0, y: 30 }}
@@ -190,28 +185,24 @@ const HeroSection = () => {
               <span className="shine-line absolute inset-0" />
               <span className="relative z-10 flex items-center gap-2">
                 Get Started
-                <motion.span
-                  animate={{ x: [0, 4, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
+                <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
                   <ArrowRight className="h-4 w-4" />
                 </motion.span>
               </span>
             </MagneticButton>
             <motion.a
-              href="https://discord.gg/zeyron"
+              href={DISCORD_LINK}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <Button size="lg" variant="outline" className="gap-2 px-8 text-sm border-border/40 hover:border-primary/30 hover:bg-primary/5 h-12 rounded-xl">
-                <ExternalLink className="h-4 w-4" /> Join Discord
+                <ExternalLink className="h-4 w-4" /> Learn More
               </Button>
             </motion.a>
           </motion.div>
 
-          {/* Stats with staggered pop-in */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-2xl mx-auto">
             {stats.map((s, i) => (
               <motion.div
@@ -220,10 +211,7 @@ const HeroSection = () => {
                 variants={statVariants}
                 initial="hidden"
                 animate="visible"
-                whileHover={{
-                  scale: 1.08,
-                  y: -6,
-                }}
+                whileHover={{ scale: 1.08, y: -6 }}
                 className="text-center p-4 rounded-xl glass gradient-border card-hover"
               >
                 <motion.div
@@ -240,14 +228,12 @@ const HeroSection = () => {
         </div>
       </motion.div>
 
-      {/* Animated bottom fade */}
       <motion.div
         className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background via-background/80 to-transparent"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
       />
-      
     </section>
   );
 };
