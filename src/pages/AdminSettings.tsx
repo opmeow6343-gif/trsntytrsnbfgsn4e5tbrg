@@ -479,23 +479,6 @@ const AdminSettings = () => {
               {tab === "triggers" && <AdminTriggers />}
               {tab === "webhooks" && <AdminWebhooks />}
 
-              {tab === "booster" && (
-                <Card className="border-border/50 bg-card/50 shadow-sm">
-                  <CardHeader><CardTitle className="font-display text-sm tracking-wider flex items-center gap-2"><Sparkles className="h-4 w-4 text-primary" /> BOOSTER PERKS</CardTitle></CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-xs text-muted-foreground">Toggle booster and media plans on or off.</p>
-                    <div className="flex items-center gap-3 rounded-lg bg-secondary/50 px-4 py-3">
-                      <Label className="text-sm font-medium flex-1">Enable Booster & Media Plans</Label>
-                      <Switch checked={settings.boosterPerksEnabled === "true"} onCheckedChange={handleToggleBooster} />
-                    </div>
-                    <div className="rounded-lg bg-secondary/30 px-4 py-3 text-xs text-muted-foreground">
-                      {settings.boosterPerksEnabled === "true"
-                        ? "✅ Booster and media plans are currently ACTIVE."
-                        : "❌ Booster and media plans are currently DISABLED."}
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
 
               {tab === "logo" && (
                 <Card className="border-border/50 bg-card/50 shadow-sm">
@@ -544,9 +527,6 @@ const AdminSettings = () => {
                 </Card>
               )}
 
-              {tab === "freeserver" && (
-                <FreeServerToggle />
-              )}
             </motion.div>
           </AnimatePresence>
         </div>
