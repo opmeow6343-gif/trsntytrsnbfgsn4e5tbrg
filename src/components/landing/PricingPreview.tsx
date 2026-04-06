@@ -68,7 +68,7 @@ const PricingPreview = () => {
               </ul>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="relative z-10">
                 <Button variant="outline" size="sm" className="w-full gap-1.5 text-[10px] font-semibold border-border/30 text-primary hover:bg-primary/5 rounded-lg" onClick={(e) => { e.stopPropagation(); handlePlanClick(plan); }}>
-                  ORDER <ArrowRight className="h-3 w-3" />
+                  Visit Billing <ArrowRight className="h-3 w-3" />
                 </Button>
               </motion.div>
               <motion.div className="absolute bottom-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, transparent, hsl(160 100% 45% / 0.25), transparent)" }} initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ delay: 0.6 + i * 0.08, duration: 0.8 }} />

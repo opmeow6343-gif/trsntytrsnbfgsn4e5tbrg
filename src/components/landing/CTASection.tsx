@@ -90,10 +90,10 @@ const CTASection = () => {
               transition={{ delay: 0.6 }}
             >
               <motion.div whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.94 }}>
-                <Button size="lg" onClick={() => navigate("/minecraft-plans")} className="glow-primary gap-2 px-8 text-sm font-bold group rounded-xl h-11 bg-primary text-primary-foreground hover:bg-primary/90 relative overflow-hidden">
+                <Button size="lg" onClick={() => window.open("https://client.zeyroncloud.com/register", "_blank")} className="glow-primary gap-2 px-8 text-sm font-bold group rounded-xl h-11 bg-primary text-primary-foreground hover:bg-primary/90 relative overflow-hidden">
                   <span className="shine-line absolute inset-0" />
                   <span className="relative z-10 flex items-center gap-2">
-                    Start Hosting
+                    Visit Billing
                     <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
                       <ArrowRight className="h-4 w-4" />
                     </motion.span>

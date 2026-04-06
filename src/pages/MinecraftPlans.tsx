@@ -33,7 +33,7 @@ const planTheme = {
 };
 
 const MinecraftPlans = () => {
-  const BILLING_URL = "https://billing.zeyroncloud.com";
+  const BILLING_URL = "https://client.zeyroncloud.com/register";
 
   const PlanGrid = ({ plans, type }: { plans: Plan[]; type: "intel" | "amd" | "premium" }) => {
     const t = planTheme[type];
@@ -55,7 +55,7 @@ const MinecraftPlans = () => {
                 <div className="flex items-center gap-1 text-xs text-muted-foreground"><Check className={`h-3 w-3 ${t.icon}`} />Up to {plan.players} players</div>
                 <CurrencyConverter amount={plan.price} />
                 <Button onClick={() => window.open(BILLING_URL, "_blank")} className={`w-full gap-1.5 text-xs font-semibold tracking-wider ${t.btn}`} variant="outline" size="sm">
-                  <ShoppingCart className="h-3.5 w-3.5" /> ORDER NOW
+                  <ShoppingCart className="h-3.5 w-3.5" /> Visit Billing
                 </Button>
               </CardContent>
             </Card>
