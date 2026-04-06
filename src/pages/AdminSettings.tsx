@@ -43,7 +43,7 @@ const settingsFields: { key: keyof SiteSettings; label: string; multiline?: bool
   { key: "pricingSubtitle", label: "Pricing Subtitle" },
 ];
 
-type TabId = "dashboard" | "tickets" | "alerts" | "content" | "news" | "coupons" | "flashsales" | "triggers" | "webhooks" | "booster" | "logo" | "admins" | "reviews" | "freeserver";
+type TabId = "dashboard" | "tickets" | "alerts" | "content" | "news" | "coupons" | "flashsales" | "triggers" | "webhooks" | "logo" | "admins" | "reviews";
 
 const tabs: { id: TabId; label: string; icon: any; group: string }[] = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, group: "Overview" },
@@ -56,10 +56,8 @@ const tabs: { id: TabId; label: string; icon: any; group: string }[] = [
   { id: "flashsales", label: "Flash Sales", icon: Zap, group: "Manage" },
   { id: "triggers", label: "Triggers", icon: Zap, group: "Automation" },
   { id: "webhooks", label: "Webhooks", icon: Webhook, group: "Automation" },
-  { id: "booster", label: "Booster", icon: Sparkles, group: "Settings" },
   { id: "logo", label: "Logo", icon: Image, group: "Settings" },
   { id: "admins", label: "Admins", icon: Users, group: "Settings" },
-  { id: "freeserver", label: "Free Server", icon: Gift, group: "Settings" },
 ];
 
 const groups = ["Overview", "Manage", "Automation", "Settings"];
