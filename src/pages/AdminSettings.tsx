@@ -10,8 +10,8 @@ import { Switch } from "@/components/ui/switch";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ExternalLink, Save, UserPlus, Trash2, Users, Plus, Newspaper,
-  Settings2, Gift, Sparkles, Image, Ticket, Tag, Zap, Webhook,
-  Bell, LayoutDashboard, PanelLeftClose, PanelLeft, ChevronRight, Server
+  Settings2, Image, Ticket, Tag, Zap, Webhook,
+  Bell, LayoutDashboard, PanelLeftClose, PanelLeft, ChevronRight
 } from "lucide-react";
 import {
   getSettings, saveSettings, checkIsAdmin, DEFAULT_SETTINGS,
