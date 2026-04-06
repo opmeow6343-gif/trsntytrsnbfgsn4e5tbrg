@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
-import { Menu, X, ExternalLink, User, LogOut, FileText, Monitor, Shield } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ExternalLink, User, LogOut, FileText, Monitor, Shield, ChevronDown, Gamepad2, Bot, Wrench, Newspaper, HelpCircle, Server, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import logo from "@/assets/zeyroncloud-logo.png";
@@ -10,14 +10,7 @@ import NotificationCenter from "@/components/NotificationCenter";
 import ThemeToggle from "@/components/ThemeToggle";
 import CursorToggle from "@/components/CursorToggle";
 
-const navLinks = [
-  { label: "Home", to: "/" },
-  { label: "Minecraft", to: "/minecraft-plans" },
-  { label: "Bot Hosting", to: "/bot-plans" },
-  { label: "Tools", to: "/tools" },
-  { label: "News", to: "/news" },
-  { label: "FAQ", to: "/faq" },
-];
+const DISCORD_LINK = "https://discord.gg/KWaU6GMmgs";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -25,6 +18,7 @@ const Navbar = () => {
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [cursorEnabled, setCursorEnabled] = useState(() => localStorage.getItem("zeyron-custom-cursor") !== "false");
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -61,6 +55,47 @@ const Navbar = () => {
 
   const handleSignOut = async () => { await supabase.auth.signOut(); navigate("/"); };
 
+  const navItems = [
+    { label: "Home", to: "/" },
+    {
+      label: "Services",
+      children: [
+        { label: "Minecraft Hosting", to: "/minecraft-hosting", icon: Gamepad2, desc: "Configure your MC server" },
+        { label: "Bot Hosting", to: "/bot-hosting", icon: Bot, desc: "Discord & custom bots" },
+        { label: "Minecraft Plans", to: "/minecraft-plans", icon: CreditCard, desc: "View all MC plans" },
+        { label: "Bot Plans", to: "/bot-plans", icon: CreditCard, desc: "View all bot plans" },
+      ],
+    },
+    {
+      label: "Games",
+      children: [
+        { label: "Minecraft", to: "/minecraft-plans", icon: Gamepad2, desc: "Java & Bedrock servers" },
+        { label: "All Games", to: "/minecraft-plans", icon: Server, desc: "Rust, Palworld & more" },
+      ],
+    },
+    {
+      label: "Resources",
+      children: [
+        { label: "MC Tools", to: "/tools", icon: Wrench, desc: "Minecraft utilities" },
+        { label: "News", to: "/news", icon: Newspaper, desc: "Latest updates" },
+        { label: "FAQ", to: "/faq", icon: HelpCircle, desc: "Common questions" },
+        { label: "Terms of Service", to: "/tos", icon: FileText, desc: "Legal terms" },
+      ],
+    },
+    {
+      label: "Support",
+      to: DISCORD_LINK,
+      external: true,
+    },
+    {
+      label: "Panels",
+      children: [
+        { label: "Game Panel", to: "https://gp.zeyroncloud.com", icon: Monitor, desc: "Manage your servers", external: true },
+        { label: "Client Area", to: "https://client.zeyroncloud.com", icon: Server, desc: "Billing & account", external: true },
+      ],
+    },
+  ];
+
   return (
     <motion.nav
       initial={{ y: -80, opacity: 0 }}
@@ -70,39 +105,113 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex h-14 items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
-          <motion.img
-            src={logo}
-            alt="ZeyronCloud"
-            className="h-7 w-7 rounded-lg"
-            whileHover={{ scale: 1.15, rotate: [0, -5, 5, 0] }}
-            transition={{ duration: 0.4 }}
-          />
+          <motion.img src={logo} alt="ZeyronCloud" className="h-7 w-7 rounded-lg" whileHover={{ scale: 1.15, rotate: [0, -5, 5, 0] }} transition={{ duration: 0.4 }} />
           <span className="font-bold text-base tracking-tight font-display">
             Zeyron<span className="gradient-text">Cloud</span>
           </span>
         </Link>
 
+        {/* Desktop Nav */}
         <div className="hidden lg:flex items-center gap-0.5">
-          {navLinks.map((link, i) => {
-            const active = location.pathname === link.to;
+          {navItems.map((item, i) => {
+            if (item.children) {
+              return (
+                <div
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={() => setActiveDropdown(item.label)}
+                  onMouseLeave={() => setActiveDropdown(null)}
+                >
+                  <motion.button
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 + i * 0.06, duration: 0.5 }}
+                    className="flex items-center gap-1 px-3.5 py-1.5 rounded-lg text-xs font-medium text-muted-foreground hover:text-foreground transition-all duration-200"
+                  >
+                    {item.label}
+                    <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${activeDropdown === item.label ? "rotate-180" : ""}`} />
+                  </motion.button>
+
+                  <AnimatePresence>
+                    {activeDropdown === item.label && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute top-full left-0 mt-1 w-64 rounded-xl glass-strong border border-border/20 p-2 shadow-xl shadow-black/20"
+                      >
+                        {item.children.map((child) => (
+                          child.external ? (
+                            <a
+                              key={child.label}
+                              href={child.to}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-start gap-3 px-3 py-2.5 rounded-lg hover:bg-primary/5 transition-colors group/item"
+                            >
+                              <div className="shrink-0 rounded-lg bg-primary/8 border border-primary/10 p-1.5 mt-0.5">
+                                <child.icon className="h-3.5 w-3.5 text-primary" />
+                              </div>
+                              <div>
+                                <p className="text-xs font-medium text-foreground flex items-center gap-1">
+                                  {child.label}
+                                  <ExternalLink className="h-2.5 w-2.5 text-muted-foreground" />
+                                </p>
+                                <p className="text-[10px] text-muted-foreground mt-0.5">{child.desc}</p>
+                              </div>
+                            </a>
+                          ) : (
+                            <Link
+                              key={child.label}
+                              to={child.to}
+                              className="flex items-start gap-3 px-3 py-2.5 rounded-lg hover:bg-primary/5 transition-colors group/item"
+                              onClick={() => setActiveDropdown(null)}
+                            >
+                              <div className="shrink-0 rounded-lg bg-primary/8 border border-primary/10 p-1.5 mt-0.5">
+                                <child.icon className="h-3.5 w-3.5 text-primary" />
+                              </div>
+                              <div>
+                                <p className="text-xs font-medium text-foreground">{child.label}</p>
+                                <p className="text-[10px] text-muted-foreground mt-0.5">{child.desc}</p>
+                              </div>
+                            </Link>
+                          )
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            }
+
+            const active = location.pathname === item.to;
             return (
               <motion.div
-                key={link.to}
+                key={item.label}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 + i * 0.06, duration: 0.5 }}
               >
-                <Link to={link.to} className={`relative px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ${active ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}>
-                  {link.label}
-                  {active && (
-                    <motion.div layoutId="nav-active" className="absolute inset-0 rounded-lg bg-primary/8 border border-primary/10 -z-10" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
-                  )}
-                </Link>
+                {item.external ? (
+                  <a href={item.to} target="_blank" rel="noopener noreferrer" className="relative px-3.5 py-1.5 rounded-lg text-xs font-medium text-muted-foreground hover:text-foreground transition-all duration-200 flex items-center gap-1">
+                    {item.label}
+                    <ExternalLink className="h-2.5 w-2.5" />
+                  </a>
+                ) : (
+                  <Link to={item.to!} className={`relative px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ${active ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}>
+                    {item.label}
+                    {active && (
+                      <motion.div layoutId="nav-active" className="absolute inset-0 rounded-lg bg-primary/8 border border-primary/10 -z-10" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
+                    )}
+                  </Link>
+                )}
               </motion.div>
             );
           })}
         </div>
 
+        {/* Right side */}
         <motion.div
           className="hidden lg:flex items-center gap-2.5 shrink-0"
           initial={{ opacity: 0, x: 20 }}
@@ -112,13 +221,6 @@ const Navbar = () => {
           <CursorToggle enabled={cursorEnabled} onToggle={toggleCursor} />
           <ThemeToggle />
           <NotificationCenter />
-          <a href="https://discord.gg/zeyron" target="_blank" rel="noopener noreferrer">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button variant="ghost" size="sm" className="gap-1.5 text-xs text-muted-foreground hover:text-foreground h-8">
-                <ExternalLink className="h-3 w-3" /> Discord
-              </Button>
-            </motion.div>
-          </a>
           {userEmail ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -157,13 +259,14 @@ const Navbar = () => {
             <Link to="/auth">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button size="sm" className="glow-primary text-xs h-8 gap-1.5 font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90">
-                  <User className="h-3 w-3" /> Sign In
+                  Client Area
                 </Button>
               </motion.div>
             </Link>
           )}
         </motion.div>
 
+        {/* Mobile toggle */}
         <Button variant="ghost" size="icon" className="lg:hidden h-9 w-9" onClick={() => setOpen(!open)}>
           <AnimatePresence mode="wait">
             {open ? (
@@ -179,6 +282,7 @@ const Navbar = () => {
         </Button>
       </div>
 
+      {/* Mobile menu */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -189,25 +293,71 @@ const Navbar = () => {
             className="lg:hidden overflow-hidden glass-strong border-t border-border/15"
           >
             <div className="container mx-auto px-4 py-4 flex flex-col gap-1">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.to}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05, duration: 0.3 }}
-                >
-                  <Link to={link.to} onClick={() => setOpen(false)} className={`block px-3.5 py-2.5 rounded-lg text-xs font-medium transition-colors ${location.pathname === link.to ? "bg-primary/8 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"}`}>
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
+              {navItems.map((item, i) => {
+                if (item.children) {
+                  return (
+                    <div key={item.label}>
+                      <motion.button
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.05, duration: 0.3 }}
+                        className="w-full text-left px-3.5 py-2.5 rounded-lg text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors flex items-center justify-between"
+                        onClick={() => setActiveDropdown(activeDropdown === item.label ? null : item.label)}
+                      >
+                        {item.label}
+                        <ChevronDown className={`h-3 w-3 transition-transform ${activeDropdown === item.label ? "rotate-180" : ""}`} />
+                      </motion.button>
+                      <AnimatePresence>
+                        {activeDropdown === item.label && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="pl-4 overflow-hidden"
+                          >
+                            {item.children.map((child) => (
+                              child.external ? (
+                                <a key={child.label} href={child.to} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)} className="block px-3.5 py-2 text-xs text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
+                                  <child.icon className="h-3 w-3" /> {child.label} <ExternalLink className="h-2.5 w-2.5" />
+                                </a>
+                              ) : (
+                                <Link key={child.label} to={child.to} onClick={() => setOpen(false)} className="block px-3.5 py-2 text-xs text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
+                                  <child.icon className="h-3 w-3" /> {child.label}
+                                </Link>
+                              )
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
+                return (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05, duration: 0.3 }}
+                  >
+                    {item.external ? (
+                      <a href={item.to} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)} className="block px-3.5 py-2.5 rounded-lg text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors">
+                        {item.label}
+                      </a>
+                    ) : (
+                      <Link to={item.to!} onClick={() => setOpen(false)} className={`block px-3.5 py-2.5 rounded-lg text-xs font-medium transition-colors ${location.pathname === item.to ? "bg-primary/8 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"}`}>
+                        {item.label}
+                      </Link>
+                    )}
+                  </motion.div>
+                );
+              })}
               <motion.div
                 className="flex gap-2.5 pt-3 mt-2 border-t border-border/15"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.3 }}
               >
-                <a href="https://discord.gg/zeyron" target="_blank" rel="noopener noreferrer" className="flex-1">
+                <a href={DISCORD_LINK} target="_blank" rel="noopener noreferrer" className="flex-1">
                   <Button variant="outline" size="sm" className="w-full gap-1.5 text-xs rounded-lg"><ExternalLink className="h-3 w-3" /> Discord</Button>
                 </a>
                 {userEmail ? (

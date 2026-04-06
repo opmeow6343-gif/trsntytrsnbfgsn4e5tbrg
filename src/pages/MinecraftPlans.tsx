@@ -10,7 +10,6 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Cpu, HardDrive, Shield, Wifi, MemoryStick, ShoppingCart, Crown, Check } from "lucide-react";
 
-
 interface Plan { ram: string; ramGb: number; price: number; storage: string; players: number; cpu: string; cpuType: string; }
 
 const getPlayers = (r: number) => r <= 4 ? 40 : r <= 8 ? 80 : r <= 16 ? 160 : r <= 24 ? 300 : 500;
@@ -22,20 +21,20 @@ const makePlans = (cpuName: string, cpuType: string, pricePerGb: number): Plan[]
     cpu: cpuName, cpuType,
   }));
 
-const intelPlans = makePlans("Intel Xeon", "intel", 15);
-const amdPlans = makePlans("AMD Ryzen 9", "amd", 30);
-const premiumPlans = makePlans("AMD Ryzen 9 Premium", "premium", 45);
+const starterPlans = makePlans("Intel Xeon", "starter", 20);
+const standardPlans = makePlans("AMD Ryzen 9", "standard", 40);
+const premiumPlans = makePlans("AMD Ryzen 9 Premium", "premium", 55);
 
 const planTheme = {
-  intel: { card: "border-green-500/20 bg-gradient-to-br from-green-500/5 to-emerald-500/3", badge: "bg-green-500/15 text-green-400", price: "text-green-400", icon: "text-green-400", btn: "bg-green-500/15 hover:bg-green-500/25 text-green-300 border border-green-500/35" },
-  amd: { card: "border-red-500/20 bg-gradient-to-br from-red-500/5 to-orange-500/3", badge: "bg-red-500/15 text-red-400", price: "text-red-400", icon: "text-red-400", btn: "bg-red-500/15 hover:bg-red-500/25 text-red-300 border border-red-500/35" },
+  starter: { card: "border-green-500/20 bg-gradient-to-br from-green-500/5 to-emerald-500/3", badge: "bg-green-500/15 text-green-400", price: "text-green-400", icon: "text-green-400", btn: "bg-green-500/15 hover:bg-green-500/25 text-green-300 border border-green-500/35" },
+  standard: { card: "border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-cyan-500/3", badge: "bg-blue-500/15 text-blue-400", price: "text-blue-400", icon: "text-blue-400", btn: "bg-blue-500/15 hover:bg-blue-500/25 text-blue-300 border border-blue-500/35" },
   premium: { card: "border-amber-500/25 bg-gradient-to-br from-amber-500/6 to-orange-500/3", badge: "bg-amber-500/15 text-amber-400", price: "text-amber-400", icon: "text-amber-400", btn: "bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/35" },
 };
 
 const MinecraftPlans = () => {
   const BILLING_URL = "https://client.zeyroncloud.com/register";
 
-  const PlanGrid = ({ plans, type }: { plans: Plan[]; type: "intel" | "amd" | "premium" }) => {
+  const PlanGrid = ({ plans, type }: { plans: Plan[]; type: "starter" | "standard" | "premium" }) => {
     const t = planTheme[type];
     return (
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -74,24 +73,23 @@ const MinecraftPlans = () => {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-xs text-primary mb-6">MINECRAFT HOSTING</div>
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight" style={{ fontFamily: "'Outfit', sans-serif" }}>Minecraft <span className="text-primary text-glow">Plans</span></h1>
-            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">Intel for affordability · AMD for performance · Premium for the best.</p>
+            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">Starter for affordability · Standard for performance · Premium for the best.</p>
           </motion.div>
-          <Tabs defaultValue="intel" className="max-w-7xl mx-auto">
+          <Tabs defaultValue="starter" className="max-w-7xl mx-auto">
             <div className="flex justify-center mb-8">
               <TabsList className="inline-flex gap-1 bg-secondary/50 p-1 rounded-xl border border-border/50">
-                <TabsTrigger value="intel" className="text-xs tracking-wider rounded-lg data-[state=active]:bg-green-500/20 data-[state=active]:text-green-400 px-4 py-2"><span className="h-2 w-2 rounded-full bg-green-400 inline-block mr-2" />INTEL — ₹15/GB</TabsTrigger>
-                <TabsTrigger value="amd" className="text-xs tracking-wider rounded-lg data-[state=active]:bg-red-500/20 data-[state=active]:text-red-400 px-4 py-2"><span className="h-2 w-2 rounded-full bg-red-400 inline-block mr-2" />AMD — ₹30/GB</TabsTrigger>
-                <TabsTrigger value="premium" className="text-xs tracking-wider rounded-lg data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400 px-4 py-2"><Crown className="h-3 w-3 mr-2" />PREMIUM — ₹45/GB</TabsTrigger>
+                <TabsTrigger value="starter" className="text-xs tracking-wider rounded-lg data-[state=active]:bg-green-500/20 data-[state=active]:text-green-400 px-4 py-2"><span className="h-2 w-2 rounded-full bg-green-400 inline-block mr-2" />STARTER — ₹20/GB</TabsTrigger>
+                <TabsTrigger value="standard" className="text-xs tracking-wider rounded-lg data-[state=active]:bg-blue-500/20 data-[state=active]:text-blue-400 px-4 py-2"><span className="h-2 w-2 rounded-full bg-blue-400 inline-block mr-2" />STANDARD — ₹40/GB</TabsTrigger>
+                <TabsTrigger value="premium" className="text-xs tracking-wider rounded-lg data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400 px-4 py-2"><Crown className="h-3 w-3 mr-2" />PREMIUM — ₹55/GB</TabsTrigger>
               </TabsList>
             </div>
-            <TabsContent value="intel"><PlanGrid plans={intelPlans} type="intel" /></TabsContent>
-            <TabsContent value="amd"><PlanGrid plans={amdPlans} type="amd" /></TabsContent>
+            <TabsContent value="starter"><PlanGrid plans={starterPlans} type="starter" /></TabsContent>
+            <TabsContent value="standard"><PlanGrid plans={standardPlans} type="standard" /></TabsContent>
             <TabsContent value="premium"><PlanGrid plans={premiumPlans} type="premium" /></TabsContent>
           </Tabs>
         </div>
       </main>
       <Footer />
-      
     </div>
   );
 };

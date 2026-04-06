@@ -1,13 +1,12 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Check, ArrowRight, Crown } from "lucide-react";
-
+import { Check, ArrowRight, Crown, Zap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const plans = [
-  { title: "Intel MC", price: "₹15", unit: "/GB", features: ["Intel Xeon", "1–32 GB DDR4", "NVMe SSD", "DDoS Shield", "Instant Setup"], popular: false },
-  { title: "AMD MC", price: "₹30", unit: "/GB", features: ["AMD Ryzen 9", "2–32 GB DDR4", "NVMe SSD", "DDoS Shield", "Priority Queue"], popular: true },
-  { title: "Premium", price: "₹45", unit: "/GB", features: ["Ryzen 9 Dedicated", "Priority Support", "Dedicated Resources", "Premium Role", "Custom Subdomain"], icon: Crown },
+  { title: "Starter", price: "₹20", unit: "/GB", features: ["Intel Xeon CPU", "1–32 GB DDR4", "NVMe SSD", "DDoS Shield", "Instant Setup"], popular: false, icon: Zap },
+  { title: "Standard", price: "₹40", unit: "/GB", features: ["AMD Ryzen 9", "2–32 GB DDR4", "NVMe SSD", "DDoS Shield", "Priority Queue"], popular: true },
+  { title: "Premium", price: "₹55", unit: "/GB", features: ["Ryzen 9 Dedicated", "Priority Support", "Dedicated Resources", "Premium Role", "Custom Subdomain"], icon: Crown },
   { title: "Bot Hosting", price: "₹25", unit: "/512MB", features: ["Bot Optimized", "Starting 512 MB", "99.99% Uptime", "NVMe SSD", "Root Access"] },
 ];
 
@@ -18,13 +17,10 @@ const cardVariants = {
 
 const PricingPreview = () => {
   const navigate = useNavigate();
-  
 
   const handlePlanClick = (plan: typeof plans[0]) => {
-    if (plan.title === "Intel MC") navigate("/minecraft-plans");
-    else if (plan.title === "AMD MC") navigate("/minecraft-plans");
-    else if (plan.title === "Premium") navigate("/minecraft-plans");
-    else if (plan.title === "Bot Hosting") navigate("/bot-plans");
+    if (plan.title === "Bot Hosting") navigate("/bot-plans");
+    else navigate("/minecraft-plans");
   };
 
   return (
@@ -36,7 +32,7 @@ const PricingPreview = () => {
             Simple{" "}
             <motion.span className="gradient-text inline-block" whileInView={{ scale: [0.8, 1.05, 1] }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}>Plans</motion.span>
           </h2>
-          <motion.p className="mt-4 text-muted-foreground text-sm" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>Order via Discord for instant setup.</motion.p>
+          <motion.p className="mt-4 text-muted-foreground text-sm" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>Affordable pricing for everyone. No hidden fees.</motion.p>
         </motion.div>
 
         <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto" style={{ perspective: "1200px" }}>
@@ -76,7 +72,6 @@ const PricingPreview = () => {
           ))}
         </div>
       </div>
-      
     </section>
   );
 };
