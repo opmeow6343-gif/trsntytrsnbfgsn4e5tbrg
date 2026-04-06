@@ -13,10 +13,7 @@ import CursorToggle from "@/components/CursorToggle";
 const navLinks = [
   { label: "Home", to: "/" },
   { label: "Minecraft", to: "/minecraft-plans" },
-  { label: "VPS", to: "/vps-plans" },
   { label: "Bot Hosting", to: "/bot-plans" },
-  { label: "Boosters", to: "/booster-plans" },
-  { label: "Free Server", to: "/free-server" },
   { label: "Tools", to: "/tools" },
   { label: "News", to: "/news" },
   { label: "FAQ", to: "/faq" },
