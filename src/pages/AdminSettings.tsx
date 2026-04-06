@@ -9,9 +9,9 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ExternalLink, Save, UserPlus, Trash2, Users, Plus, Newspaper,
-  Settings2, Gift, Sparkles, Image, Ticket, Tag, Zap, Webhook,
-  Bell, LayoutDashboard, PanelLeftClose, PanelLeft, ChevronRight, Server
+  ExternalLink, Save, UserPlus, Trash2, Users, Plus, Newspaper, Gift,
+  Settings2, Image, Ticket, Tag, Zap, Webhook,
+  Bell, LayoutDashboard, PanelLeftClose, PanelLeft, ChevronRight
 } from "lucide-react";
 import {
   getSettings, saveSettings, checkIsAdmin, DEFAULT_SETTINGS,
@@ -43,7 +43,7 @@ const settingsFields: { key: keyof SiteSettings; label: string; multiline?: bool
   { key: "pricingSubtitle", label: "Pricing Subtitle" },
 ];
 
-type TabId = "dashboard" | "tickets" | "alerts" | "content" | "news" | "coupons" | "flashsales" | "triggers" | "webhooks" | "booster" | "logo" | "admins" | "reviews" | "freeserver";
+type TabId = "dashboard" | "tickets" | "alerts" | "content" | "news" | "coupons" | "flashsales" | "triggers" | "webhooks" | "logo" | "admins" | "reviews";
 
 const tabs: { id: TabId; label: string; icon: any; group: string }[] = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, group: "Overview" },
@@ -56,10 +56,8 @@ const tabs: { id: TabId; label: string; icon: any; group: string }[] = [
   { id: "flashsales", label: "Flash Sales", icon: Zap, group: "Manage" },
   { id: "triggers", label: "Triggers", icon: Zap, group: "Automation" },
   { id: "webhooks", label: "Webhooks", icon: Webhook, group: "Automation" },
-  { id: "booster", label: "Booster", icon: Sparkles, group: "Settings" },
   { id: "logo", label: "Logo", icon: Image, group: "Settings" },
   { id: "admins", label: "Admins", icon: Users, group: "Settings" },
-  { id: "freeserver", label: "Free Server", icon: Gift, group: "Settings" },
 ];
 
 const groups = ["Overview", "Manage", "Automation", "Settings"];
@@ -68,46 +66,6 @@ const contentVariants = {
   hidden: { opacity: 0, y: 12, scale: 0.98 },
   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.35, ease: [0.23, 1, 0.32, 1] as [number, number, number, number] } },
   exit: { opacity: 0, y: -8, scale: 0.98, transition: { duration: 0.2 } },
-};
-
-const FreeServerToggle = () => {
-  const [enabled, setEnabled] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    supabase.from("site_settings").select("value").eq("key", "free_server_enabled").maybeSingle().then(({ data }) => {
-      setEnabled(data?.value === "true");
-      setLoading(false);
-    });
-  }, []);
-
-  const toggle = async () => {
-    const newVal = !enabled;
-    setEnabled(newVal);
-    const { data: existing } = await supabase.from("site_settings").select("id").eq("key", "free_server_enabled").maybeSingle();
-    if (existing) {
-      await supabase.from("site_settings").update({ value: String(newVal) }).eq("key", "free_server_enabled");
-    } else {
-      await supabase.from("site_settings").insert({ key: "free_server_enabled", value: String(newVal) });
-    }
-    toast({ title: newVal ? "Free Server page enabled" : "Free Server page disabled" });
-  };
-
-  return (
-    <Card className="border-border/50 bg-card/50 shadow-sm">
-      <CardHeader><CardTitle className="font-display text-sm tracking-wider flex items-center gap-2"><Server className="h-4 w-4 text-primary" /> FREE SERVER PAGE</CardTitle></CardHeader>
-      <CardContent className="space-y-4">
-        <p className="text-xs text-muted-foreground">Toggle the Free Server page on or off. When disabled, users will see a "Currently Unavailable" message.</p>
-        <div className="flex items-center justify-between rounded-lg bg-secondary/50 px-4 py-3">
-          <div>
-            <p className="text-sm font-medium">Free Server Page</p>
-            <p className="text-xs text-muted-foreground">{enabled ? "Currently visible to users" : "Currently hidden from users"}</p>
-          </div>
-          <Switch checked={enabled} onCheckedChange={toggle} disabled={loading} />
-        </div>
-      </CardContent>
-    </Card>
-  );
 };
 
 const AdminSettings = () => {
@@ -165,12 +123,6 @@ const AdminSettings = () => {
   const handleToggleNews = async (id: string, active: boolean) => { await updateNewsItem(id, { active: !active }); setNewsItems(await getNews()); };
   const handleDeleteNews = async (id: string) => { await deleteNewsItem(id); setNewsItems(await getNews()); };
 
-  const handleToggleBooster = async (enabled: boolean) => {
-    const updated = { ...settings, boosterPerksEnabled: enabled ? "true" : "false" };
-    setSettingsState(updated);
-    await saveSettings(updated);
-    toast({ title: enabled ? "Booster perks enabled" : "Booster perks disabled" });
-  };
 
   const handleAddAdmin = async () => {
     if (!newAdminEmail.includes("@")) { toast({ title: "Error", description: "Valid email required", variant: "destructive" }); return; }
@@ -481,23 +433,6 @@ const AdminSettings = () => {
               {tab === "triggers" && <AdminTriggers />}
               {tab === "webhooks" && <AdminWebhooks />}
 
-              {tab === "booster" && (
-                <Card className="border-border/50 bg-card/50 shadow-sm">
-                  <CardHeader><CardTitle className="font-display text-sm tracking-wider flex items-center gap-2"><Sparkles className="h-4 w-4 text-primary" /> BOOSTER PERKS</CardTitle></CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-xs text-muted-foreground">Toggle booster and media plans on or off.</p>
-                    <div className="flex items-center gap-3 rounded-lg bg-secondary/50 px-4 py-3">
-                      <Label className="text-sm font-medium flex-1">Enable Booster & Media Plans</Label>
-                      <Switch checked={settings.boosterPerksEnabled === "true"} onCheckedChange={handleToggleBooster} />
-                    </div>
-                    <div className="rounded-lg bg-secondary/30 px-4 py-3 text-xs text-muted-foreground">
-                      {settings.boosterPerksEnabled === "true"
-                        ? "✅ Booster and media plans are currently ACTIVE."
-                        : "❌ Booster and media plans are currently DISABLED."}
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
 
               {tab === "logo" && (
                 <Card className="border-border/50 bg-card/50 shadow-sm">
@@ -546,9 +481,6 @@ const AdminSettings = () => {
                 </Card>
               )}
 
-              {tab === "freeserver" && (
-                <FreeServerToggle />
-              )}
             </motion.div>
           </AnimatePresence>
         </div>

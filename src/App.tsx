@@ -15,7 +15,7 @@ const MinecraftPlans = lazy(() => import("./pages/MinecraftPlans"));
 const BotHosting = lazy(() => import("./pages/BotHosting"));
 const BotPlans = lazy(() => import("./pages/BotPlans"));
 const MinecraftTools = lazy(() => import("./pages/MinecraftTools"));
-const BoosterPlans = lazy(() => import("./pages/BoosterPlans"));
+
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminSettings = lazy(() => import("./pages/AdminSettings"));
@@ -25,10 +25,8 @@ const AuthPage = lazy(() => import("./pages/AuthPage"));
 const FAQPage = lazy(() => import("./pages/FAQPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const PlanComparison = lazy(() => import("./pages/PlanComparison"));
-const VPSPlans = lazy(() => import("./pages/VPSPlans"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
-const FreeServer = lazy(() => import("./pages/FreeServer"));
 
 const queryClient = new QueryClient();
 
@@ -74,7 +72,7 @@ const App = () => {
               <Route path="/bot-hosting" element={<BotHosting />} />
               <Route path="/bot-plans" element={<BotPlans />} />
               <Route path="/tools" element={<MinecraftTools />} />
-              <Route path="/booster-plans" element={<BoosterPlans />} />
+              
               <Route path="/tos" element={<TermsOfService />} />
               <Route path="/news" element={<NewsPage />} />
               
@@ -82,11 +80,11 @@ const App = () => {
               <Route path="/faq" element={<FAQPage />} />
               <Route path="/admin" element={<AdminLogin />} />
               <Route path="/admin/settings" element={<AdminSettings />} />
-              <Route path="/vps-plans" element={<VPSPlans />} />
+              
               <Route path="/compare" element={<PlanComparison />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/free-server" element={<FreeServer />} />
+              
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

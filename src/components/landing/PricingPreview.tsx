@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Check, ArrowRight, Crown, Sparkles, Server } from "lucide-react";
+import { Check, ArrowRight, Crown } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -9,8 +9,6 @@ const plans = [
   { title: "AMD MC", price: "₹30", unit: "/GB", features: ["AMD Ryzen 9", "2–32 GB DDR4", "NVMe SSD", "DDoS Shield", "Priority Queue"], popular: true },
   { title: "Premium", price: "₹45", unit: "/GB", features: ["Ryzen 9 Dedicated", "Priority Support", "Dedicated Resources", "Premium Role", "Custom Subdomain"], icon: Crown },
   { title: "Bot Hosting", price: "₹25", unit: "/512MB", features: ["Bot Optimized", "Starting 512 MB", "99.99% Uptime", "NVMe SSD", "Root Access"] },
-  { title: "VPS", price: "₹99", unit: "/mo", features: ["Full Root Access", "Dedicated vCPU", "NVMe Storage", "DDoS Shield", "24/7 Support"], icon: Server },
-  { title: "Booster", price: "FREE", unit: "", features: ["Discord Boost Perks", "Up to 8 GB RAM", "Creator Plans", "Free Hosting", "Exclusive Roles"], icon: Sparkles },
 ];
 
 const cardVariants = {
@@ -27,8 +25,6 @@ const PricingPreview = () => {
     else if (plan.title === "AMD MC") navigate("/minecraft-plans");
     else if (plan.title === "Premium") navigate("/minecraft-plans");
     else if (plan.title === "Bot Hosting") navigate("/bot-plans");
-    else if (plan.title === "VPS") navigate("/vps-plans");
-    else if (plan.title === "Booster") navigate("/booster-plans");
   };
 
   return (
@@ -43,7 +39,7 @@ const PricingPreview = () => {
           <motion.p className="mt-4 text-muted-foreground text-sm" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>Order via Discord for instant setup.</motion.p>
         </motion.div>
 
-        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 max-w-6xl mx-auto" style={{ perspective: "1200px" }}>
+        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto" style={{ perspective: "1200px" }}>
           {plans.map((plan, i) => (
             <motion.div key={plan.title} custom={i} variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} whileHover={{ scale: 1.05, y: -10, transition: { duration: 0.3 } }} onClick={() => handlePlanClick(plan)} className={`relative rounded-xl glass gradient-border p-5 cursor-pointer overflow-hidden card-hover ${plan.popular ? "ring-1 ring-primary/20" : ""}`}>
               {plan.popular && (

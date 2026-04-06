@@ -38,7 +38,7 @@ const Footer = () => (
         </motion.div>
 
         {[
-          { title: "Hosting", links: [{ label: "Minecraft", to: "/minecraft-plans" }, { label: "VPS", to: "/vps-plans" }, { label: "Bot Hosting", to: "/bot-plans" }, { label: "Boosters", to: "/booster-plans" }] },
+          { title: "Hosting", links: [{ label: "Minecraft", to: "/minecraft-plans" }, { label: "Bot Hosting", to: "/bot-plans" }] },
           { title: "Resources", links: [{ label: "MC Tools", to: "/tools" }, { label: "News", to: "/news" }, { label: "FAQ", to: "/faq" }, { label: "Terms", to: "/tos" }] },
           { title: "Connect", links: [
             { label: "Discord", to: "https://discord.gg/zeyron", external: true },
