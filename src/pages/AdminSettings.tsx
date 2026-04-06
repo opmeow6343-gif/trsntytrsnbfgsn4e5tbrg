@@ -123,12 +123,6 @@ const AdminSettings = () => {
   const handleToggleNews = async (id: string, active: boolean) => { await updateNewsItem(id, { active: !active }); setNewsItems(await getNews()); };
   const handleDeleteNews = async (id: string) => { await deleteNewsItem(id); setNewsItems(await getNews()); };
 
-  const handleToggleBooster = async (enabled: boolean) => {
-    const updated = { ...settings, boosterPerksEnabled: enabled ? "true" : "false" };
-    setSettingsState(updated);
-    await saveSettings(updated);
-    toast({ title: enabled ? "Booster perks enabled" : "Booster perks disabled" });
-  };
 
   const handleAddAdmin = async () => {
     if (!newAdminEmail.includes("@")) { toast({ title: "Error", description: "Valid email required", variant: "destructive" }); return; }
