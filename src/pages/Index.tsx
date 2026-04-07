@@ -1,19 +1,18 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/landing/HeroSection";
-import StatsMarquee from "@/components/landing/StatsMarquee";
-import TechLogosMarquee from "@/components/landing/TechLogosMarquee";
 import WelcomeSection from "@/components/landing/WelcomeSection";
 import GamesSection from "@/components/landing/GamesSection";
-import FeaturesSection from "@/components/landing/FeaturesSection";
 import AdvantagesSection from "@/components/landing/AdvantagesSection";
 import TrustStatsSection from "@/components/landing/TrustStatsSection";
+import ControlPanelSection from "@/components/landing/ControlPanelSection";
+import FeaturesSection from "@/components/landing/FeaturesSection";
 import HowItWorksSection from "@/components/landing/HowItWorksSection";
 import TestimonialsSection from "@/components/landing/TestimonialsSection";
 import PricingPreview from "@/components/landing/PricingPreview";
+import ComparisonTable from "@/components/landing/ComparisonTable";
 import FAQPreview from "@/components/landing/FAQPreview";
 import DiscordBanner from "@/components/landing/DiscordBanner";
 import CTASection from "@/components/landing/CTASection";
-import SectionDivider from "@/components/landing/SectionDivider";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 
@@ -24,25 +23,16 @@ const Index = () => {
       <Navbar />
       <main>
         <HeroSection />
-        <StatsMarquee />
-        <TechLogosMarquee />
-        <SectionDivider />
         <WelcomeSection />
-        <SectionDivider />
         <GamesSection />
-        <SectionDivider />
         <AdvantagesSection />
-        <SectionDivider />
         <TrustStatsSection />
-        <SectionDivider />
+        <ControlPanelSection />
         <FeaturesSection />
-        <SectionDivider />
-        <HowItWorksSection />
-        <SectionDivider />
         <PricingPreview />
-        <SectionDivider />
+        <HowItWorksSection />
+        <ComparisonTable />
         <TestimonialsSection />
-        <SectionDivider />
         <FAQPreview />
         <DiscordBanner />
         <CTASection />
