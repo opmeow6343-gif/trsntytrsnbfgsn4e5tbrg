@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ExternalLink, User, LogOut, FileText, Monitor, Shield, ChevronDown, Gamepad2, Bot, Wrench, Newspaper, HelpCircle, Server, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import logo from "@/assets/zeyroncloud-logo.png";
+import logo from "@/assets/zeyron-logo.png";
 import { supabase } from "@/integrations/supabase/client";
 import NotificationCenter from "@/components/NotificationCenter";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -60,8 +60,6 @@ const Navbar = () => {
     {
       label: "Services",
       children: [
-        { label: "Minecraft Hosting", to: "/minecraft-hosting", icon: Gamepad2, desc: "Configure your MC server" },
-        { label: "Bot Hosting", to: "/bot-hosting", icon: Bot, desc: "Discord & custom bots" },
         { label: "Minecraft Plans", to: "/minecraft-plans", icon: CreditCard, desc: "View all MC plans" },
         { label: "Bot Plans", to: "/bot-plans", icon: CreditCard, desc: "View all bot plans" },
       ],
@@ -70,7 +68,7 @@ const Navbar = () => {
       label: "Games",
       children: [
         { label: "Minecraft", to: "/minecraft-plans", icon: Gamepad2, desc: "Java & Bedrock servers" },
-        { label: "All Games", to: "/minecraft-plans", icon: Server, desc: "Rust, Palworld & more" },
+        { label: "All Games", to: "/games", icon: Server, desc: "Rust, Palworld & more" },
       ],
     },
     {
