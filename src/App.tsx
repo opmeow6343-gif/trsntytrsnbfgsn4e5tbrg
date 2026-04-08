@@ -15,6 +15,7 @@ const MinecraftPlans = lazy(() => import("./pages/MinecraftPlans"));
 const BotHosting = lazy(() => import("./pages/BotHosting"));
 const BotPlans = lazy(() => import("./pages/BotPlans"));
 const MinecraftTools = lazy(() => import("./pages/MinecraftTools"));
+const AllGames = lazy(() => import("./pages/AllGames"));
 
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
@@ -72,6 +73,7 @@ const App = () => {
               <Route path="/bot-hosting" element={<BotHosting />} />
               <Route path="/bot-plans" element={<BotPlans />} />
               <Route path="/tools" element={<MinecraftTools />} />
+              <Route path="/games" element={<AllGames />} />
               
               <Route path="/tos" element={<TermsOfService />} />
               <Route path="/news" element={<NewsPage />} />

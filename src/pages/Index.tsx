@@ -6,6 +6,7 @@ import AdvantagesSection from "@/components/landing/AdvantagesSection";
 import TrustStatsSection from "@/components/landing/TrustStatsSection";
 import ControlPanelSection from "@/components/landing/ControlPanelSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
+import FeaturesShowcase from "@/components/landing/FeaturesShowcase";
 import HowItWorksSection from "@/components/landing/HowItWorksSection";
 import TestimonialsSection from "@/components/landing/TestimonialsSection";
 import PricingPreview from "@/components/landing/PricingPreview";
@@ -13,6 +14,7 @@ import ComparisonTable from "@/components/landing/ComparisonTable";
 import FAQPreview from "@/components/landing/FAQPreview";
 import DiscordBanner from "@/components/landing/DiscordBanner";
 import CTASection from "@/components/landing/CTASection";
+import ZeyronMCSection from "@/components/landing/ZeyronMCSection";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 
@@ -25,11 +27,13 @@ const Index = () => {
         <HeroSection />
         <WelcomeSection />
         <GamesSection />
+        <FeaturesShowcase />
         <AdvantagesSection />
         <TrustStatsSection />
         <ControlPanelSection />
         <FeaturesSection />
         <PricingPreview />
+        <ZeyronMCSection />
         <HowItWorksSection />
         <ComparisonTable />
         <TestimonialsSection />
