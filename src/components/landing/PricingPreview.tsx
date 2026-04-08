@@ -4,9 +4,9 @@ import { Check, ArrowRight, Crown, Zap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const plans = [
-  { title: "Starter", price: "₹20", unit: "/GB", features: ["Intel Xeon CPU", "1–32 GB DDR4", "NVMe SSD", "DDoS Shield", "Instant Setup"], popular: false, icon: Zap },
-  { title: "Standard", price: "₹40", unit: "/GB", features: ["AMD Ryzen 9", "2–32 GB DDR4", "NVMe SSD", "DDoS Shield", "Priority Queue"], popular: true },
-  { title: "Premium", price: "₹55", unit: "/GB", features: ["Ryzen 9 Dedicated", "Priority Support", "Dedicated Resources", "Premium Role", "Custom Subdomain"], icon: Crown },
+  { title: "Starter", price: "₹20", unit: "/GB", features: ["Intel Xeon E5-2699 v4 3.2GHz", "1–32 GB DDR4", "NVMe SSD", "DDoS Shield", "Instant Setup"], popular: false, icon: Zap },
+  { title: "Standard", price: "₹40", unit: "/GB", features: ["Intel Platinum 8573C 4.2GHz", "2–32 GB DDR4", "NVMe SSD", "DDoS Shield", "Priority Queue"], popular: true },
+  { title: "Premium", price: "₹55", unit: "/GB", features: ["AMD Epyc 9J14 96C/192T", "Priority Support", "Dedicated Resources", "Premium Role", "Custom Subdomain"], icon: Crown },
   { title: "Bot Hosting", price: "₹25", unit: "/512MB", features: ["Bot Optimized", "Starting 512 MB", "99.99% Uptime", "NVMe SSD", "Root Access"] },
 ];
 

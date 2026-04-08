@@ -21,9 +21,9 @@ const makePlans = (cpuName: string, cpuType: string, pricePerGb: number): Plan[]
     cpu: cpuName, cpuType,
   }));
 
-const starterPlans = makePlans("Intel Xeon", "starter", 20);
-const standardPlans = makePlans("AMD Ryzen 9", "standard", 40);
-const premiumPlans = makePlans("AMD Ryzen 9 Premium", "premium", 55);
+const starterPlans = makePlans("Intel Xeon E5-2699 v4 3.2GHz", "starter", 20);
+const standardPlans = makePlans("Intel Platinum 8573C 4.2GHz", "standard", 40);
+const premiumPlans = makePlans("AMD Epyc 9J14 96C/192T", "premium", 55);
 
 const planTheme = {
   starter: { card: "border-green-500/20 bg-gradient-to-br from-green-500/5 to-emerald-500/3", badge: "bg-green-500/15 text-green-400", price: "text-green-400", icon: "text-green-400", btn: "bg-green-500/15 hover:bg-green-500/25 text-green-300 border border-green-500/35" },
