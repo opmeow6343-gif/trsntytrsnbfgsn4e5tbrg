@@ -232,6 +232,17 @@
 }
 .animate-float { animation: float 5s ease-in-out infinite; }
 
+/* Blob animation */
+@keyframes blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -50px) scale(1.1); }
+  50% { transform: translate(-20px, 20px) scale(0.9); }
+  75% { transform: translate(20px, 40px) scale(1.05); }
+}
+.animate-blob { animation: blob 12s ease-in-out infinite; }
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
+
 /* Pulse ring */
 @keyframes pulse-ring {
   0% { box-shadow: 0 0 0 0 hsl(160 100% 45% / 0.3); }
