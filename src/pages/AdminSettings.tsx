@@ -13,6 +13,7 @@ import {
   Settings2, Image, Ticket, Tag, Zap, Webhook,
   Bell, LayoutDashboard, PanelLeftClose, PanelLeft, ChevronRight
 } from "lucide-react";
+import AnimatedBackground from "@/components/AnimatedBackground";
 import {
   getSettings, saveSettings, checkIsAdmin, DEFAULT_SETTINGS,
   getNews, addNewsItem, updateNewsItem, deleteNewsItem,
