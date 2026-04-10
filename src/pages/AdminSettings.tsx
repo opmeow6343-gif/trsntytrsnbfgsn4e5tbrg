@@ -174,7 +174,8 @@ const AdminSettings = () => {
   const currentTab = tabs.find(t => t.id === tab);
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-background flex relative">
+      <AnimatedBackground />
       {/* Sidebar */}
       <motion.aside
         initial={false}

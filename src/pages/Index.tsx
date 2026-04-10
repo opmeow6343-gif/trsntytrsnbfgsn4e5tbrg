@@ -17,6 +17,7 @@ import CTASection from "@/components/landing/CTASection";
 import ZeyronMCSection from "@/components/landing/ZeyronMCSection";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const Index = () => {
   return (

@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { supabase } from "@/integrations/supabase/client";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const specs = [
   { icon: MemoryStick, label: "RAM", value: "4 GB", desc: "DDR4 ECC Memory" },
@@ -48,7 +49,8 @@ const FreeServer = () => {
       <>
         <SEOHead title="Free Server - ZeyronCloud" description="Free Minecraft server hosting by ZeyronCloud" />
         <Navbar />
-        <main className="min-h-screen flex items-center justify-center bg-background pt-20">
+        <AnimatedBackground />
+        <main className="min-h-screen flex items-center justify-center bg-background pt-20 relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -77,7 +79,8 @@ const FreeServer = () => {
     <>
       <SEOHead title="Free Server - ZeyronCloud" description="Get a free 4GB RAM Minecraft server from ZeyronCloud" />
       <Navbar />
-      <main className="min-h-screen bg-background pt-20 pb-16">
+      <AnimatedBackground />
+      <main className="min-h-screen bg-background pt-20 pb-16 relative z-10">
         {/* Hero */}
         <section className="py-20 relative overflow-hidden">
           <motion.div
