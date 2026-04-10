@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { toast } from "@/hooks/use-toast";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -34,7 +35,8 @@ const ProfilePage = () => {
   if (loading) return <div className="min-h-screen bg-background flex items-center justify-center text-muted-foreground text-sm">Loading...</div>;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <AnimatedBackground />
       <SEOHead title="Profile — ZeyronCloud" description="Your ZeyronCloud account profile." path="/profile" />
       <Navbar />
       <main className="container mx-auto px-4 pt-24 pb-16 max-w-2xl">

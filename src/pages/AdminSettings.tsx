@@ -13,6 +13,7 @@ import {
   Settings2, Image, Ticket, Tag, Zap, Webhook,
   Bell, LayoutDashboard, PanelLeftClose, PanelLeft, ChevronRight
 } from "lucide-react";
+import AnimatedBackground from "@/components/AnimatedBackground";
 import {
   getSettings, saveSettings, checkIsAdmin, DEFAULT_SETTINGS,
   getNews, addNewsItem, updateNewsItem, deleteNewsItem,
@@ -174,7 +175,8 @@ const AdminSettings = () => {
   const currentTab = tabs.find(t => t.id === tab);
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-background flex relative">
+      <AnimatedBackground />
       {/* Sidebar */}
       <motion.aside
         initial={false}

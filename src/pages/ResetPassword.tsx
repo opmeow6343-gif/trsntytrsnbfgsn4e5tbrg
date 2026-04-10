@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { Lock, CheckCircle2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -58,7 +59,8 @@ const ResetPassword = () => {
   if (checking) return null;
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4">
+    <div className="min-h-screen bg-background flex items-center justify-center px-4 relative">
+      <AnimatedBackground />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-sm">
         {success ? (
           <div className="text-center space-y-4">

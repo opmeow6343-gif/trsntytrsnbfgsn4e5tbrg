@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Lock, ArrowLeft, Mail } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { checkIsAdmin } from "@/lib/storage";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -55,7 +56,8 @@ const AdminLogin = () => {
   if (checking) return null;
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4">
+    <div className="min-h-screen bg-background flex items-center justify-center px-4 relative">
+      <AnimatedBackground />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-sm">
         <div className="mb-6">
           <Link to="/"><Button variant="ghost" size="sm" className="gap-2 text-muted-foreground"><ArrowLeft className="h-4 w-4" /> Back to Home</Button></Link>
