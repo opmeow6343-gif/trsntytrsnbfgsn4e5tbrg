@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Star, Quote, Send, Trash2 } from "lucide-react";
+import { Star, Quote, Send, Trash2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -139,36 +139,62 @@ const TestimonialsSection = () => {
           </div>
         </div>
 
-        {/* Write a review */}
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-center mt-8">
-          {!showForm ? (
-            <Button variant="outline" onClick={() => setShowForm(true)} className="gap-2 text-xs border-border/30 hover:border-primary/30 rounded-lg">
-              <Send className="h-3.5 w-3.5" /> Write a Review
-            </Button>
-          ) : (
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-md mx-auto glass gradient-border rounded-xl p-6 space-y-4">
-              <h3 className="font-display text-sm font-bold">Leave a Review</h3>
-              <Input placeholder="Your name" value={name} onChange={e => setName(e.target.value)} className="bg-secondary/50 border-border text-xs" />
-              <Textarea placeholder="Your review..." value={text} onChange={e => setText(e.target.value)} className="bg-secondary/50 border-border text-xs min-h-[80px]" />
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-muted-foreground">Rating:</span>
-                <div className="flex gap-1">
-                  {[1, 2, 3, 4, 5].map(s => (
-                    <button key={s} onClick={() => setStars(s)} className="transition-transform hover:scale-125">
-                      <Star className={`h-5 w-5 ${s <= stars ? "fill-primary text-primary" : "text-muted-foreground/30"}`} />
-                    </button>
-                  ))}
+        {/* Trustpilot CTA + Write a review */}
+        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="mt-10">
+          {/* Trustpilot banner */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-lg mx-auto glass gradient-border rounded-xl p-6 text-center mb-6"
+          >
+            <div className="flex justify-center gap-1 mb-3">
+              {[1, 2, 3, 4, 5].map(s => (
+                <Star key={s} className="h-5 w-5 fill-[#00b67a] text-[#00b67a]" />
+              ))}
+            </div>
+            <p className="text-sm font-semibold mb-1">Rate us 5 Stars on Trustpilot!</p>
+            <p className="text-xs text-muted-foreground mb-4">Your feedback helps us grow and serve you better.</p>
+            <a href="https://www.trustpilot.com/review/zeyroncloud.com" target="_blank" rel="noopener noreferrer">
+              <Button className="gap-2 bg-[#00b67a] hover:bg-[#00a06a] text-white text-xs">
+                <Star className="h-3.5 w-3.5 fill-white" />
+                Review us on Trustpilot
+                <ExternalLink className="h-3 w-3" />
+              </Button>
+            </a>
+          </motion.div>
+
+          {/* Write a site review */}
+          <div className="text-center">
+            {!showForm ? (
+              <Button variant="outline" onClick={() => setShowForm(true)} className="gap-2 text-xs border-border/30 hover:border-primary/30 rounded-lg">
+                <Send className="h-3.5 w-3.5" /> Write a Review
+              </Button>
+            ) : (
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-md mx-auto glass gradient-border rounded-xl p-6 space-y-4">
+                <h3 className="font-display text-sm font-bold">Leave a Review</h3>
+                <Input placeholder="Your name" value={name} onChange={e => setName(e.target.value)} className="bg-secondary/50 border-border text-xs" />
+                <Textarea placeholder="Your review..." value={text} onChange={e => setText(e.target.value)} className="bg-secondary/50 border-border text-xs min-h-[80px]" />
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground">Rating:</span>
+                  <div className="flex gap-1">
+                    {[1, 2, 3, 4, 5].map(s => (
+                      <button key={s} onClick={() => setStars(s)} className="transition-transform hover:scale-125">
+                        <Star className={`h-5 w-5 ${s <= stars ? "fill-primary text-primary" : "text-muted-foreground/30"}`} />
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="flex gap-2">
-                <Button variant="outline" onClick={() => setShowForm(false)} className="flex-1 text-xs">Cancel</Button>
-                <Button onClick={handleSubmit} disabled={submitting} className="flex-1 glow-primary text-xs gap-1.5">
-                  <Send className="h-3.5 w-3.5" /> {submitting ? "Submitting..." : "Submit"}
-                </Button>
-              </div>
-              {!session && <p className="text-[10px] text-muted-foreground">You need to <a href="/auth" className="text-primary hover:underline">sign in</a> to submit a review.</p>}
-            </motion.div>
-          )}
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={() => setShowForm(false)} className="flex-1 text-xs">Cancel</Button>
+                  <Button onClick={handleSubmit} disabled={submitting} className="flex-1 glow-primary text-xs gap-1.5">
+                    <Send className="h-3.5 w-3.5" /> {submitting ? "Submitting..." : "Submit"}
+                  </Button>
+                </div>
+                {!session && <p className="text-[10px] text-muted-foreground">You need to <a href="/auth" className="text-primary hover:underline">sign in</a> to submit a review.</p>}
+              </motion.div>
+            )}
+          </div>
         </motion.div>
       </div>
     </section>
