@@ -82,7 +82,11 @@ const TermsOfService = () => {
               },
               {
                 title: "10. Contact",
-                content: "For questions about these terms, contact us via Discord: https://discord.gg/zeyron or open a support ticket on our website.",
+                content: "For questions about these terms, contact us via Discord: https://discord.gg/BdFNqyNuKD or email us at support@zeyroncloud.com.",
+              },
+              {
+                title: "Ownership",
+                content: "ZeyronCloud is owned and operated by Ahamo and Akshit.",
               },
             ].map((section, i) => (
               <motion.div

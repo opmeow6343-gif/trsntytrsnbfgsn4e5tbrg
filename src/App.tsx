@@ -28,6 +28,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const PlanComparison = lazy(() => import("./pages/PlanComparison"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
+const ContactPage = lazy(() => import("./pages/ContactPage"));
 
 const queryClient = new QueryClient();
 
@@ -86,6 +87,7 @@ const App = () => {
               <Route path="/compare" element={<PlanComparison />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/contact" element={<ContactPage />} />
               
               <Route path="*" element={<NotFound />} />
             </Routes>

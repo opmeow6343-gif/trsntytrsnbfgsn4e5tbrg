@@ -62,6 +62,15 @@ const CTASection = () => {
             </motion.div>
           </div>
         </motion.div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+          className="text-center text-xs text-muted-foreground/30 mt-8"
+        >
+          Owned By <span className="text-muted-foreground/50 font-semibold">Ahamo</span> and <span className="text-muted-foreground/50 font-semibold">Akshit</span>
+        </motion.p>
       </div>
     </section>
   );
