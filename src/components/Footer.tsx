@@ -33,6 +33,7 @@ const Footer = () => (
             { label: "YouTube", to: "https://www.youtube.com/@ZeyronCloud", external: true },
             { label: "Game Panel", to: "https://gp.zeyroncloud.com", external: true },
             { label: "Client Area", to: "https://client.zeyroncloud.com", external: true },
+            { label: "Contact Us", to: "/contact" },
             { label: "Sign In", to: "/auth" },
           ] },
         ].map((col, ci) => (
