@@ -58,6 +58,8 @@ const Footer = () => (
       <motion.div className="pt-5 border-t border-border/8 flex flex-col sm:flex-row items-center justify-between gap-2" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.5, duration: 0.6 }}>
         <p className="text-[10px] text-muted-foreground/25">© {new Date().getFullYear()} ZeyronCloud</p>
         <p className="text-[10px] text-muted-foreground/20 flex items-center gap-1">
+          Owned By <span className="text-muted-foreground/40 font-semibold">Ahamo</span> & <span className="text-muted-foreground/40 font-semibold">Akshit</span>
+          <span className="mx-1">•</span>
           Made with{" "}
           <motion.span animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 1.5, repeat: Infinity }}>
             <Heart className="h-2.5 w-2.5 text-primary/30" />

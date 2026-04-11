@@ -80,11 +80,7 @@ const Navbar = () => {
         { label: "Terms of Service", to: "/tos", icon: FileText, desc: "Legal terms" },
       ],
     },
-    {
-      label: "Support",
-      to: DISCORD_LINK,
-      external: true,
-    },
+    { label: "Contact", to: "/contact" },
     {
       label: "Panels",
       children: [
@@ -254,13 +250,13 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Link to="/auth">
+          <a href="https://client.zeyroncloud.com/register" target="_blank" rel="noopener noreferrer">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button size="sm" className="glow-primary text-xs h-8 gap-1.5 font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90">
                   Client Area
                 </Button>
               </motion.div>
-            </Link>
+            </a>
           )}
         </motion.div>
 
