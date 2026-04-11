@@ -55,7 +55,7 @@ const Navbar = () => {
 
   const handleSignOut = async () => { await supabase.auth.signOut(); navigate("/"); };
 
-  const navItems = [
+  const navItems: Array<{ label: string; to?: string; external?: boolean; children?: Array<{ label: string; to: string; icon: any; desc: string; external?: boolean }> }> = [
     { label: "Home", to: "/" },
     {
       label: "Services",
