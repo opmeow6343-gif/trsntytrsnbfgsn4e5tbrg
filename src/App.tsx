@@ -16,6 +16,8 @@ const BotHosting = lazy(() => import("./pages/BotHosting"));
 const BotPlans = lazy(() => import("./pages/BotPlans"));
 const MinecraftTools = lazy(() => import("./pages/MinecraftTools"));
 const AllGames = lazy(() => import("./pages/AllGames"));
+const FeaturesPage = lazy(() => import("./pages/FeaturesPage"));
+const WhyUsPage = lazy(() => import("./pages/WhyUsPage"));
 
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
