@@ -71,6 +71,8 @@ const Navbar = () => {
         { label: "All Games", to: "/games", icon: Server, desc: "Rust, Palworld & more" },
       ],
     },
+    { label: "Features", to: "/features" },
+    { label: "Why Us", to: "/why-us" },
     {
       label: "Resources",
       children: [

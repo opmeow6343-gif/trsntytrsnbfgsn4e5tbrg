@@ -77,6 +77,8 @@ const App = () => {
               <Route path="/bot-plans" element={<BotPlans />} />
               <Route path="/tools" element={<MinecraftTools />} />
               <Route path="/games" element={<AllGames />} />
+              <Route path="/features" element={<FeaturesPage />} />
+              <Route path="/why-us" element={<WhyUsPage />} />
               
               <Route path="/tos" element={<TermsOfService />} />
               <Route path="/news" element={<NewsPage />} />
